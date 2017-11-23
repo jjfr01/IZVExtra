@@ -44,9 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
 
         Excursion exc = datos.get(position);
 
-        //holder.bindLugares(lgs);
-
-        holder.bindExcursion(exc);
+        holder.bindExcursion(exc, context);
 
     }
 
@@ -55,7 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
         return datos.size();
     }
 
-    public class ExcursionViewHolder extends RecyclerView.ViewHolder {
+    public static class ExcursionViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvPlace;
         private CardView cv1;
@@ -67,13 +65,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
             cv1 = (CardView) itemView.findViewById(R.id.cv1);
         }
 
-        public void bindExcursion(final Excursion s) {
+        public void bindExcursion(final Excursion s, final Context context) {
             tvPlace.setText(s.getPlace());
 
             cv1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "Card: " + s.getPlace(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, ""+s.getDate(), Toast.LENGTH_LONG).show();
+
                 }
             });
 

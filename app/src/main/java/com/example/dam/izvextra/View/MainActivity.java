@@ -17,17 +17,22 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    private void init(){
+
+        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerAdapter ra = new RecyclerAdapter(generarDatos(), this);
+        rv.setAdapter(ra);
+
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
-        RecyclerAdapter ra = new RecyclerAdapter(generarDatos());
-        rv.setAdapter(ra);
-
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
+        init();
 
     }
 
