@@ -1,7 +1,9 @@
-package com.example.dam.izvextra;
+package com.example.dam.izvextra.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.dam.izvextra.R;
 
 public class MainActivity extends AppCompatActivity {
 
