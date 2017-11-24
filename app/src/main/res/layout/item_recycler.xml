@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
@@ -42,7 +41,7 @@
             android:id="@+id/tvGroups"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
+            android:layout_gravity="center|start"
             android:layout_margin="8dp"
             android:textSize="16sp"
             android:textColor="@color/colorWhite"
@@ -52,7 +51,7 @@
             android:id="@+id/tvTeachers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
+            android:layout_gravity="bottom|start"
             android:layout_margin="8dp"
             android:textSize="16sp"
             android:textColor="@color/colorWhite"
@@ -62,7 +61,7 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
+            android:layout_gravity="top|end"
             android:layout_margin="8dp"
             android:textSize="16sp"
             android:textColor="@color/colorWhite"
@@ -72,7 +71,7 @@
             android:id="@+id/tvHour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_margin="8dp"
             android:textSize="16sp"
             android:textColor="@color/colorWhite"
