@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
             tchs.add(tch);
             tch = new Teacher("Pepe", "Pepazo", 2);
             tchs.add(tch);
+            tch = new Teacher("Antonia", "Lozano", 3);
+            tchs.add(tch);
 
-            Group grp = new Group("A", 1);
+            Group grp = new Group("2º DAM", 1);
             ArrayList<Group> grps = new ArrayList<>();
             grps.add(grp);
 

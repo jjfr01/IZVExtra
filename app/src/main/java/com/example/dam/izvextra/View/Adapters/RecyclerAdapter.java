@@ -69,7 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
             tvGroups = (TextView) itemView.findViewById(R.id.tvGroups);
             tvTeachers = (TextView) itemView.findViewById(R.id.tvTeachers);
             tvDate = (TextView) itemView.findViewById(R.id.tvDate);
-            tvHour = (TextView) itemView.findViewById(R.id.tvHour);
+            //tvHour = (TextView) itemView.findViewById(R.id.tvHour);
             cv1 = (CardView) itemView.findViewById(R.id.cv1);
         }
 
@@ -78,11 +78,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
             tvGroups.setText("Grupos: " + getStringGroups(s.getGroups()));
             tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
             tvDate.setText(getDateFormat(s.getDate()));
-            tvHour.setText(s.getHour());
+            //tvHour.setText(s.getHour());
 
             cv1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Toast.makeText(context, "" + s.getDate(), Toast.LENGTH_LONG).show();
 
                 }
@@ -97,10 +98,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
 
         result = result + arrayTeachers.get(0).getNameTeacher();
 
-        for (int i = 1; i < arrayTeachers.size(); i++) {
+        if (arrayTeachers.size() == 1) {
 
-            result = result + ", " + arrayTeachers.get(i).getNameTeacher() + " ";
+        } else {
 
+            for (int i = 1; i < arrayTeachers.size(); i++) {
+
+                result = result + ", " + arrayTeachers.get(i).getNameTeacher() + " ";
+
+            }
         }
 
         return result;
@@ -112,19 +118,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
 
         result = result + arrayGroups.get(0).getNameGroup();
 
-        for (int i = 1; i < arrayGroups.size(); i++) {
+        if (arrayGroups.size() == 1) {
 
-            result = result + ", " + arrayGroups.get(i).getNameGroup() + " ";
+        } else {
 
+            for (int i = 1; i < arrayGroups.size(); i++) {
+
+                result = result + ", " + arrayGroups.get(i).getNameGroup() + " ";
+
+            }
         }
 
         return result;
     }
 
-    private String getDateFormat (Date date){
+    private String getDateFormat(Date date) {
 
         String result = "";
-
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
         result = format.format(date);
