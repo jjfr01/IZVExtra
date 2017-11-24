@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
+import com.example.dam.izvextra.Model.Pojo.Group;
+import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
 
         Excursion exc = datos.get(position);
 
-        holder.bindExcursion(exc, context);
+        holder.bindExcursion(exc);
 
     }
 
@@ -53,29 +55,66 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
         return datos.size();
     }
 
-    public static class ExcursionViewHolder extends RecyclerView.ViewHolder {
+    public class ExcursionViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvPlace;
+        private TextView tvPlace, tvGroups, tvTeachers, tvDate, tvHour;
         private CardView cv1;
 
 
         public ExcursionViewHolder(View itemView) {
             super(itemView);
             tvPlace = (TextView) itemView.findViewById(R.id.tvPlace);
+            tvGroups = (TextView) itemView.findViewById(R.id.tvGroups);
+            tvTeachers = (TextView) itemView.findViewById(R.id.tvTeachers);
+            tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            tvHour = (TextView) itemView.findViewById(R.id.tvHour);
             cv1 = (CardView) itemView.findViewById(R.id.cv1);
         }
 
-        public void bindExcursion(final Excursion s, final Context context) {
+        public void bindExcursion(final Excursion s) {
             tvPlace.setText(s.getPlace());
+            tvTeachers.setText(getStringTeachers(s.getTeachers()));
+            tvGroups.setText(getStringGroups(s.getGroups()));
 
             cv1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, ""+s.getDate(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "" + s.getDate(), Toast.LENGTH_LONG).show();
 
                 }
             });
 
         }
     }
+
+    private String getStringTeachers(ArrayList<Teacher> arrayTeachers) {
+
+        String result = "";
+
+        result = result + arrayTeachers.get(0).getNameTeacher();
+
+        for (int i = 1; i < arrayTeachers.size(); i++) {
+
+            result = result + ", " + arrayTeachers.get(i).getNameTeacher() + " ";
+
+        }
+
+        return result;
+    }
+
+    private String getStringGroups(ArrayList<Group> arrayGroups) {
+
+        String result = "";
+
+        result = result + arrayGroups.get(0).getNameGroup();
+
+        for (int i = 1; i < arrayGroups.size(); i++) {
+
+            result = result + ", " + arrayGroups.get(i).getNameGroup() + " ";
+
+        }
+
+        return result;
+    }
+
 }
