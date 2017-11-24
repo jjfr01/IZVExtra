@@ -57,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
             Calendar calendar = Calendar.getInstance();
             Date newDate =  calendar.getTime();
-            SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
-            String date = format.format(newDate);
-
-            Toast.makeText(this, date, Toast.LENGTH_LONG).show();
 
             Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "11:15", newDate);
 

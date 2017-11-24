@@ -15,7 +15,9 @@ import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ExcursionViewHolder> {
 
@@ -73,8 +75,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
 
         public void bindExcursion(final Excursion s) {
             tvPlace.setText(s.getPlace());
-            tvTeachers.setText(getStringTeachers(s.getTeachers()));
-            tvGroups.setText(getStringGroups(s.getGroups()));
+            tvGroups.setText("Grupos: " + getStringGroups(s.getGroups()));
+            tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
+            tvDate.setText(getDateFormat(s.getDate()));
+            tvHour.setText(s.getHour());
 
             cv1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,6 +117,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
             result = result + ", " + arrayGroups.get(i).getNameGroup() + " ";
 
         }
+
+        return result;
+    }
+
+    private String getDateFormat (Date date){
+
+        String result = "";
+
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
+        result = format.format(date);
 
         return result;
     }
