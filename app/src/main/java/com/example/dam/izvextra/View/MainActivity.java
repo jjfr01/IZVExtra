@@ -2,6 +2,8 @@ package com.example.dam.izvextra.View;
 
 import android.app.FragmentManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerlayout = (DrawerLayout) findViewById(R.id.drawerlayout);
 
+
         navigationView.setItemIconTintList(null);//Esto nos permite que los iconos del menu del navigation drawer tengan su propio color
 
         setSupportActionBar(toolbar);
@@ -54,9 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
         defaultFragment();
 
-        /*MainFragment mf = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
-        mf.sendArray(generarDatos());*/
+    }
 
+    private void init2(){
+
+        MainFragment mf = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
+        mf.sendArray(generarDatos());
 
     }
 
@@ -69,12 +76,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        init2();//Tengo que hacerlo aqui ya que tengo que esperar a que se cargue la vista por defecto (defaultFragment())
+
+    }
+
     private void defaultFragment() {
 
-        int i = getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragMain, new MainFragment())
-                .commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragMain, new MainFragment()).commit();
 
         MenuItem item = navigationView.getMenu().getItem(0);
         item.setChecked(true);
