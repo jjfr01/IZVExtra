@@ -9,12 +9,9 @@
     tools:context=".View.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragMain"
-        android:name="com.example.dam.izvextra.View.Fragments.MainFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintVertical_weight="100"
-        tools:layout="@layout/fragment_main" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.example.dam.izvextra.View;
 
 import android.app.FragmentManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,11 +22,13 @@ import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Adapters.RecyclerAdapter;
+import com.example.dam.izvextra.View.Fragments.AdminFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,14 +50,12 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_burguer);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        /*RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
-        RecyclerAdapter ra = new RecyclerAdapter(generarDatos(), this);
-        rv.setAdapter(ra);
+        setSettingNavigationDrawer();
 
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));*/
+        defaultFragment();
 
-        MainFragment mf = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
-        mf.sendArray(generarDatos());
+        /*MainFragment mf = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
+        mf.sendArray(generarDatos());*/
 
 
     }
@@ -64,6 +66,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
+
+    }
+
+    private void defaultFragment() {
+
+        int i = getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragMain, new MainFragment())
+                .commit();
+
+        MenuItem item = navigationView.getMenu().getItem(0);
+        item.setChecked(true);
 
     }
 
@@ -89,6 +103,58 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setSettingNavigationDrawer() {
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                boolean FragmentTransaction = false;
+                Fragment fragment = null;
+
+                switch (item.getItemId()) {
+
+                    case R.id.menu_home:
+                        fragment = new MainFragment();
+                        FragmentTransaction = true;
+                        break;
+
+                    case R.id.menu_admin:
+                        fragment = new AdminFragment();
+                        FragmentTransaction = true;
+                        break;
+
+                    case R.id.menu_group:
+                        //fragment = new MainFragment();
+                        //FragmentTransaction = true;
+                        break;
+
+                    case R.id.menu_teacher:
+                        //fragment = new MainFragment();
+                        //FragmentTransaction = true;
+                        break;
+
+
+
+                }
+
+                if (FragmentTransaction == true) {
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragMain, fragment)
+                            .commit();
+                    item.setChecked(true);
+                    drawerlayout.closeDrawers();
+                }
+
+                return true;
+            }
+        });
+
+
     }
 
     private ArrayList<Excursion> generarDatos() {
