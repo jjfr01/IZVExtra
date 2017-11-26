@@ -1,5 +1,6 @@
 package com.example.dam.izvextra.View;
 
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
@@ -25,17 +28,21 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBar actionbar;
     private DrawerLayout drawerlayout;
+    private NavigationView navigationView;
 
     private void init(){
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        navigationView = (NavigationView) findViewById(R.id.navigationview);
+        drawerlayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+
+        navigationView.setItemIconTintList(null);//Esto nos permite que los iconos del menu del navigation drawer tengan su propio color
 
         setSupportActionBar(toolbar);
         actionbar = getSupportActionBar();
         actionbar.setHomeAsUpIndicator(R.drawable.ic_burguer);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        drawerlayout = (DrawerLayout) findViewById(R.id.drawerlayout);
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
         RecyclerAdapter ra = new RecyclerAdapter(generarDatos(), this);
@@ -52,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_icon, menu);
+        return true;
     }
 
     @Override

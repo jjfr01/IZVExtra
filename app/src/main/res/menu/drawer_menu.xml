@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_home"
+            android:icon="@drawable/ic_home"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/menu_admin"
+            android:icon="@drawable/ic_edit"
+            android:title="Editar Excursiones" />
+
+        <item
+            android:id="@+id/menu_group"
+            android:icon="@drawable/ic_group"
+            android:title="Editar Grupos" />
+
+        <item
+            android:id="@+id/menu_teacher"
+            android:icon="@drawable/ic_person"
+            android:title="Editar Profesores" />
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="Configuración" />
+        <item
+            android:id="@+id/menu_help"
+            android:icon="@drawable/ic_help"
+            android:title="Ayuda" />
+    </group>
+
+</menu>
