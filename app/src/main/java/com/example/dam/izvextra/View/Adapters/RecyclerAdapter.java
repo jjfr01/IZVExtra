@@ -57,6 +57,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
         return datos.size();
     }
 
+    public void updateArray(ArrayList<Excursion> arrayUpdated){
+
+        datos = arrayUpdated;
+
+    }
+
     public class ExcursionViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvPlace, tvGroups, tvTeachers, tvDate, tvHour;

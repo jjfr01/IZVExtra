@@ -1,6 +1,8 @@
 package com.example.dam.izvextra.View;
 
+import android.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,6 +20,7 @@ import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Adapters.RecyclerAdapter;
+import com.example.dam.izvextra.View.Fragments.MainFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
 
-    private void init(){
+    private void init() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
@@ -43,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_burguer);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-
-        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
+        /*RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
         RecyclerAdapter ra = new RecyclerAdapter(generarDatos(), this);
         rv.setAdapter(ra);
 
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));*/
+
+        MainFragment mf = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
+        mf.sendArray(generarDatos());
+
 
     }
 
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case android.R.id.home:
 
@@ -85,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList<Excursion> generarDatos(){
+    private ArrayList<Excursion> generarDatos() {
 
         ArrayList<Excursion> excs = new ArrayList<>();
 
-        for (int i = 0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
 
             ArrayList<Teacher> tchs = new ArrayList<>();
             Teacher tch = new Teacher("Juanjo", "Fernandez", 1);
@@ -104,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             grps.add(grp);
 
             Calendar calendar = Calendar.getInstance();
-            Date newDate =  calendar.getTime();
+            Date newDate = calendar.getTime();
 
             Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "11:15", newDate);
 
