@@ -63,7 +63,7 @@ public class MainFragment extends Fragment {
         outState.putParcelableArrayList("array", excs);
     }
 
-    public void getArray() {//Esto es temporal
+    private void getArray() {//Esto es temporal
 
             for (int i = 0; i < 2; i++) {
 
@@ -88,6 +88,31 @@ public class MainFragment extends Fragment {
 
             }
 
+            /*
+            //View -- Aqui
+            Presenter ps = new Presenter();
+
+            ps.getArrayExcursions();
+
+            //Presenter
+            public ArrayList<Excursion> getArrayExcursions(){
+
+                Model md = new Model();
+
+                return md.getArrayFromJson();
+            }
+
+            //Model
+           public ArrayList<Excursion> getArrayFromJson(){
+
+                //Conectar con el json
+                //Parsear el jsonarray a un arrayList<Excursion>
+                //cuando lo tengamos lo devolvemos
+
+                return array;
+
+           }
+*/
     }
 
 }
