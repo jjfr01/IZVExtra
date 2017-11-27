@@ -14,7 +14,8 @@ public class Excursion implements Parcelable {
     private String description, place, hour;
     private Date date;
 
-    public Excursion() {}
+    public Excursion() {
+    }
 
     public Excursion(ArrayList<Teacher> teachers, ArrayList<Group> groups, String description, String place, String hour, Date date) {
         this.teachers = teachers;
