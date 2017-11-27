@@ -19,16 +19,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ExcursionViewHolder> {
+public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapterViewOnly.ExcursionViewHolder> {
 
     private ArrayList<Excursion> datos;
     private Context context;
 
-    public RecyclerAdapter(ArrayList<Excursion> datos) {
+    public RecyclerAdapterViewOnly(ArrayList<Excursion> datos) {
         this.datos = datos;
     }
 
-    public RecyclerAdapter(ArrayList<Excursion> datos, Context context) {
+    public RecyclerAdapterViewOnly(ArrayList<Excursion> datos, Context context) {
         this.datos = datos;
         this.context = context;
     }
@@ -44,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAdapter.ExcursionViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerAdapterViewOnly.ExcursionViewHolder holder, int position) {
 
         Excursion exc = datos.get(position);
 
@@ -85,15 +85,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Excurs
             tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
             tvDate.setText(getDateFormat(s.getDate()));
             //tvHour.setText(s.getHour());
-
-            cv1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toast.makeText(context, "" + s.getDate(), Toast.LENGTH_LONG).show();
-
-                }
-            });
 
         }
     }
