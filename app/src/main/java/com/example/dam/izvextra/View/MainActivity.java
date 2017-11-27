@@ -1,8 +1,6 @@
 package com.example.dam.izvextra.View;
 
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Fragments.AdminFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
@@ -25,19 +24,20 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar actionbar;
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
+    private Excursion holderExcursion;
 
     private void init() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        navigationView = (NavigationView) findViewById(R.id.navigationview);
-        drawerlayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.navigationview);
+        drawerlayout =  findViewById(R.id.drawerlayout);
 
 
         navigationView.setItemIconTintList(null);//Esto nos permite que los iconos del menu del navigation drawer tengan su propio color
 
         setSupportActionBar(toolbar);
         actionbar = getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_burguer);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_burguer);//Cargamos el icono burger para el Navigation Drawer
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         setSettingNavigationDrawer();
@@ -68,9 +68,18 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    public void changeFragment(Fragment fragment){
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragMain, fragment)
+                .commit();
+
+    }
+
     private void defaultFragment() {
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragMain, new MainFragment()).commit();
+        changeFragment(new MainFragment());
 
         MenuItem item = navigationView.getMenu().getItem(0);
         item.setChecked(true);
@@ -132,16 +141,21 @@ public class MainActivity extends AppCompatActivity {
                         //FragmentTransaction = true;
                         break;
 
+                    case R.id.menu_setting:
+
+                        break;
+
+                    case R.id.menu_help:
+
+                        break;
+
 
 
                 }
 
                 if (FragmentTransaction == true) {
 
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragMain, fragment)
-                            .commit();
+                    changeFragment(fragment);
                     item.setChecked(true);
                     drawerlayout.closeDrawers();
                 }
@@ -150,6 +164,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void holdExcursion(Excursion exc){
+
+        holderExcursion = exc;
+
+    }
+
+    public Excursion recoverHolderExcursion(){
+
+
+        return holderExcursion;
+    }
+
+    public void uncheckedHomeItem(){
+
+        navigationView.getMenu().getItem(0).setChecked(false);
 
     }
 

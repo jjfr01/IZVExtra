@@ -2,6 +2,8 @@ package com.example.dam.izvextra.View.Adapters;
 
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
+import com.example.dam.izvextra.View.Fragments.ViewFragment;
+import com.example.dam.izvextra.View.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
 
     private ArrayList<Excursion> datos;
     private Context context;
+    private FragmentActivity fragmentActivity;
 
     public RecyclerAdapterViewOnly(ArrayList<Excursion> datos) {
         this.datos = datos;
@@ -31,6 +36,12 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
     public RecyclerAdapterViewOnly(ArrayList<Excursion> datos, Context context) {
         this.datos = datos;
         this.context = context;
+    }
+
+    public RecyclerAdapterViewOnly(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity) {
+        this.datos = datos;
+        this.context = context;
+        this.fragmentActivity = fragmentActivity;
     }
 
     @Override
@@ -57,7 +68,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
         return datos.size();
     }
 
-    public void updateArray(ArrayList<Excursion> arrayUpdated){
+    public void updateArray(ArrayList<Excursion> arrayUpdated) {
 
         datos = arrayUpdated;
 
@@ -71,12 +82,12 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
 
         public ExcursionViewHolder(View itemView) {
             super(itemView);
-            tvPlace = (TextView) itemView.findViewById(R.id.tvPlace);
-            tvGroups = (TextView) itemView.findViewById(R.id.tvGroups);
-            tvTeachers = (TextView) itemView.findViewById(R.id.tvTeachers);
-            tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            tvPlace = itemView.findViewById(R.id.tvPlace);
+            tvGroups = itemView.findViewById(R.id.tvGroups);
+            tvTeachers = itemView.findViewById(R.id.tvTeachers);
+            tvDate = itemView.findViewById(R.id.tvDate);
             //tvHour = (TextView) itemView.findViewById(R.id.tvHour);
-            cv1 = (CardView) itemView.findViewById(R.id.cv1);
+            cv1 = itemView.findViewById(R.id.cv1);
         }
 
         public void bindExcursion(final Excursion s) {
@@ -85,6 +96,21 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
             tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
             tvDate.setText(getDateFormat(s.getDate()));
             //tvHour.setText(s.getHour());
+
+            cv1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Fragment fragment = new ViewFragment();
+
+                    MainActivity ma = (MainActivity) fragmentActivity;
+                    ma.changeFragment(fragment);
+
+                    ma.holdExcursion(s);
+                    ma.uncheckedHomeItem();
+
+                }
+            });
 
         }
     }

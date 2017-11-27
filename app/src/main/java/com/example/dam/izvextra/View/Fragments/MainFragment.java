@@ -49,7 +49,7 @@ public class MainFragment extends Fragment {
         }
 
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
-        ra = new RecyclerAdapterViewOnly(excs, view.getContext());
+        ra = new RecyclerAdapterViewOnly(excs, view.getContext(), getActivity());
         rv.setAdapter(ra);
 
         rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
@@ -64,7 +64,6 @@ public class MainFragment extends Fragment {
     }
 
     public void getArray() {//Esto es temporal
-
 
             for (int i = 0; i < 2; i++) {
 
