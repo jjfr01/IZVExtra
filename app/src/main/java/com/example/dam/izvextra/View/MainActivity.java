@@ -1,6 +1,7 @@
 package com.example.dam.izvextra.View;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+                        setTheme(R.style.AppTheme);
                         break;
 
                     case R.id.menu_admin:
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+                        setTheme(R.style.AppTheme_Green);
                         break;
 
                     case R.id.menu_group:
