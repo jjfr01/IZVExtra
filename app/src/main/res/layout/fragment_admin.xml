@@ -5,9 +5,9 @@
     tools:context="com.example.dam.izvextra.View.Fragments.AdminFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:id="@+id/etPrueba"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvEditExc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

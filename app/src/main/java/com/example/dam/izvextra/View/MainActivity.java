@@ -1,5 +1,6 @@
 package com.example.dam.izvextra.View;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
+import com.example.dam.izvextra.Model.Pojo.Group;
+import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Fragments.AdminFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
     private Excursion holderExcursion;
+    private ArrayList<Excursion> excs = new ArrayList<>();
 
     private void init() {
 
@@ -53,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState == null) {
 
+            getArray();
+
             defaultFragment();
 
         } else {
@@ -79,7 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void defaultFragment() {
 
-        changeFragment(new MainFragment());
+        Fragment fragment = new MainFragment();
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelableArrayList("Array", excs);
+        fragment.setArguments(bundle);
+
+        changeFragment(fragment);
 
         MenuItem item = navigationView.getMenu().getItem(0);
         item.setChecked(true);
@@ -118,16 +134,23 @@ public class MainActivity extends AppCompatActivity {
 
                 boolean FragmentTransaction = false;
                 Fragment fragment = null;
+                Bundle bundle;
 
                 switch (item.getItemId()) {
 
                     case R.id.menu_home:
                         fragment = new MainFragment();
+                        bundle = new Bundle();
+                        bundle.putParcelableArrayList("Array", excs);
+                        fragment.setArguments(bundle);
                         FragmentTransaction = true;
                         break;
 
                     case R.id.menu_admin:
                         fragment = new AdminFragment();
+                        bundle = new Bundle();
+                        bundle.putParcelableArrayList("Array", excs);
+                        fragment.setArguments(bundle);
                         FragmentTransaction = true;
                         break;
 
@@ -183,6 +206,58 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView.getMenu().getItem(0).setChecked(false);
 
+    }
+
+    private void getArray() {//Esto es temporal
+
+        for (int i = 0; i < 2; i++) {
+
+            ArrayList<Teacher> tchs = new ArrayList<>();
+            Teacher tch = new Teacher("Juanjo", "Fernandez", 1);
+            tchs.add(tch);
+            tch = new Teacher("Pepe", "Pepazo", 2);
+            tchs.add(tch);
+            tch = new Teacher("Antonia", "Lozano", 3);
+            tchs.add(tch);
+
+            Group grp = new Group("2º DAM", 1);
+            ArrayList<Group> grps = new ArrayList<>();
+            grps.add(grp);
+
+            Calendar calendar = Calendar.getInstance();
+            Date newDate = calendar.getTime();
+
+            Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "11:15", newDate);
+
+            excs.add(exc);
+
+        }
+
+            /*
+            //View -- Aqui
+            Presenter ps = new Presenter();
+
+            ps.getArrayExcursions();
+
+            //Presenter
+            public ArrayList<Excursion> getArrayExcursions(){
+
+                Model md = new Model();
+
+                return md.getArrayFromJson();
+            }
+
+            //Model
+           public ArrayList<Excursion> getArrayFromJson(){
+
+                //Conectar con el json
+                //Parsear el jsonarray a un arrayList<Excursion>
+                //cuando lo tengamos lo devolvemos
+
+                return array;
+
+           }
+*/
     }
 
 }

@@ -15,6 +15,7 @@ import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Adapters.RecyclerAdapterViewOnly;
+import com.example.dam.izvextra.View.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +31,6 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,15 +40,15 @@ public class MainFragment extends Fragment {
 
         if (savedInstanceState == null) {
 
-            getArray();//Temporal
+            excs = getArguments().getParcelableArrayList("Array");
 
         } else {
 
-            excs = savedInstanceState.getParcelableArrayList("array");
+            excs = savedInstanceState.getParcelableArrayList("Array");
 
         }
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rvViewOnly);
         ra = new RecyclerAdapterViewOnly(excs, view.getContext(), getActivity());
         rv.setAdapter(ra);
 
@@ -60,59 +60,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("array", excs);
+        outState.putParcelableArrayList("Array", excs);
     }
 
-    private void getArray() {//Esto es temporal
 
-            for (int i = 0; i < 2; i++) {
-
-                ArrayList<Teacher> tchs = new ArrayList<>();
-                Teacher tch = new Teacher("Juanjo", "Fernandez", 1);
-                tchs.add(tch);
-                tch = new Teacher("Pepe", "Pepazo", 2);
-                tchs.add(tch);
-                tch = new Teacher("Antonia", "Lozano", 3);
-                tchs.add(tch);
-
-                Group grp = new Group("2º DAM", 1);
-                ArrayList<Group> grps = new ArrayList<>();
-                grps.add(grp);
-
-                Calendar calendar = Calendar.getInstance();
-                Date newDate = calendar.getTime();
-
-                Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "11:15", newDate);
-
-                excs.add(exc);
-
-            }
-
-            /*
-            //View -- Aqui
-            Presenter ps = new Presenter();
-
-            ps.getArrayExcursions();
-
-            //Presenter
-            public ArrayList<Excursion> getArrayExcursions(){
-
-                Model md = new Model();
-
-                return md.getArrayFromJson();
-            }
-
-            //Model
-           public ArrayList<Excursion> getArrayFromJson(){
-
-                //Conectar con el json
-                //Parsear el jsonarray a un arrayList<Excursion>
-                //cuando lo tengamos lo devolvemos
-
-                return array;
-
-           }
-*/
-    }
 
 }

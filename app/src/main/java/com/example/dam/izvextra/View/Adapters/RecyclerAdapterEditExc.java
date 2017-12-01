@@ -15,27 +15,28 @@ import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
+import com.example.dam.izvextra.View.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapterViewOnly.ExcursionViewHolder> {
+public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapterEditExc.ExcursionViewHolder> {
 
     private ArrayList<Excursion> datos;
     private Context context;
     private FragmentActivity fragmentActivity;
 
-    public RecyclerAdapterViewOnly(ArrayList<Excursion> datos) {
+    public RecyclerAdapterEditExc(ArrayList<Excursion> datos) {
         this.datos = datos;
     }
 
-    public RecyclerAdapterViewOnly(ArrayList<Excursion> datos, Context context) {
+    public RecyclerAdapterEditExc(ArrayList<Excursion> datos, Context context) {
         this.datos = datos;
         this.context = context;
     }
 
-    public RecyclerAdapterViewOnly(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity) {
+    public RecyclerAdapterEditExc(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity) {
         this.datos = datos;
         this.context = context;
         this.fragmentActivity = fragmentActivity;
@@ -44,7 +45,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
     @Override
     public ExcursionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_green, parent, false);
 
         ExcursionViewHolder evh = new ExcursionViewHolder(itemView);
 
@@ -52,7 +53,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAdapterViewOnly.ExcursionViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerAdapterEditExc.ExcursionViewHolder holder, int position) {
 
         Excursion exc = datos.get(position);
 
@@ -97,6 +98,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
             cv1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
 
                 }
             });
