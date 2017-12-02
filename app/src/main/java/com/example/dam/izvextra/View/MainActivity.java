@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigationview);
-        drawerlayout =  findViewById(R.id.drawerlayout);
+        drawerlayout = findViewById(R.id.drawerlayout);
 
 
         navigationView.setItemIconTintList(null);//Esto nos permite que los iconos del menu del navigation drawer tengan su propio color
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
 
             getArray();
 
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-    public void changeFragment(Fragment fragment){
+    public void changeFragment(Fragment fragment) {
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -147,10 +149,6 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        if(Build.VERSION.SDK_INT >= 21) {
-                            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-                        }
                         break;
 
                     case R.id.menu_admin:
@@ -159,10 +157,6 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.colorGreenPrimary));
-                        if(Build.VERSION.SDK_INT >= 21) {
-                            getWindow().setStatusBarColor(getResources().getColor(R.color.colorGreenDark));
-                        }
                         break;
 
                     case R.id.menu_group:
@@ -184,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
 
-
                 }
 
                 if (FragmentTransaction == true) {
@@ -201,19 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void holdExcursion(Excursion exc){
-
-        holderExcursion = exc;
-
-    }
-
-    public Excursion recoverHolderExcursion(){
-
-
-        return holderExcursion;
-    }
-
-    public void uncheckedHomeItem(){
+    public void uncheckedHomeItem() {
 
         navigationView.getMenu().getItem(0).setChecked(false);
 

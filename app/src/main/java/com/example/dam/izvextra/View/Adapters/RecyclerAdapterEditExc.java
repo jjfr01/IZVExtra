@@ -45,7 +45,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public ExcursionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_green, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler, parent, false);
 
         ExcursionViewHolder evh = new ExcursionViewHolder(itemView);
 
