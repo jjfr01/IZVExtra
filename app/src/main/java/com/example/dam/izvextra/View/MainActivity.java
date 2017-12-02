@@ -2,6 +2,8 @@ package com.example.dam.izvextra.View;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -145,7 +147,10 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
-                        setTheme(R.style.AppTheme);
+                        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        if(Build.VERSION.SDK_INT >= 21) {
+                            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                        }
                         break;
 
                     case R.id.menu_admin:
@@ -154,7 +159,10 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
-                        setTheme(R.style.AppTheme_Green);
+                        toolbar.setBackgroundColor(getResources().getColor(R.color.colorGreenPrimary));
+                        if(Build.VERSION.SDK_INT >= 21) {
+                            getWindow().setStatusBarColor(getResources().getColor(R.color.colorGreenDark));
+                        }
                         break;
 
                     case R.id.menu_group:
