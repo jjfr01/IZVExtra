@@ -2,7 +2,6 @@ package com.example.dam.izvextra.View.Adapters;
 
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
-import com.example.dam.izvextra.View.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public ExcursionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_green, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_edit, parent, false);
 
         ExcursionViewHolder evh = new ExcursionViewHolder(itemView);
 
