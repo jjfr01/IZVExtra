@@ -1,12 +1,9 @@
 package com.example.dam.izvextra.View;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -15,9 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -36,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar actionbar;
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
-    private Excursion holderExcursion;
     private ArrayList<Excursion> excs = new ArrayList<>();
 
     private void init() {
