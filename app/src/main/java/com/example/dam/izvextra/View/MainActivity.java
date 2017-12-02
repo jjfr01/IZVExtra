@@ -1,23 +1,23 @@
 package com.example.dam.izvextra.View;
 
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.service.notification.StatusBarNotification;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                String color = null;
                 boolean FragmentTransaction = false;
                 Fragment fragment = null;
                 Bundle bundle;
@@ -144,19 +145,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.menu_home:
+                        color = "BLUE";
                         fragment = new MainFragment();
                         bundle = new Bundle();
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+                        changeColorTopView(color);
                         break;
 
                     case R.id.menu_admin:
+                        color = "GREEN";
                         fragment = new AdminFragment();
                         bundle = new Bundle();
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+                        changeColorTopView(color);
                         break;
 
                     case R.id.menu_group:
@@ -185,12 +190,77 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(fragment);
                     item.setChecked(true);
                     drawerlayout.closeDrawers();
+                    changeColorNavigationMenu(color);
                 }
 
                 return true;
             }
         });
 
+
+    }
+
+    private void changeColorTopView(String color) {
+
+        switch (color) {
+
+            case "BLUE":
+
+                toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+                break;
+
+            case "GREEN":
+
+                toolbar.setBackgroundColor(getResources().getColor(R.color.colorGreenPrimary));
+
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.colorGreenDark));
+                }
+
+                break;
+
+        }
+
+    }
+
+    public void changeColorNavigationMenu(final String color) {
+
+        View headerView = navigationView.getHeaderView(0);
+        final ImageView imgHeader = headerView.findViewById(R.id.imgheadermenu);
+        final TextView tvHeader = headerView.findViewById(R.id.tvheadermenu);
+
+        switch (color) {
+
+            case "BLUE":
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imgHeader.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.splash));
+                        tvHeader.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    }
+                }, 1000);
+
+
+                break;
+
+            case "GREEN":
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imgHeader.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.splash_green));
+                        tvHeader.setBackgroundColor(getResources().getColor(R.color.colorGreenDark));
+                    }
+                }, 1000);
+
+                break;
+
+        }
 
     }
 

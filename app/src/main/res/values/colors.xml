@@ -7,5 +7,10 @@
 
     <color name="colorWhite">#FFF</color>
 
+    <color name="colorGreenLight">#C8E6C9</color>
+    <color name="colorGreenDark">#388E3C</color>
+    <color name="colorGreenPrimary">#4CAF50</color>
+    <color name="colorGreenAccent">#8BC34A</color>
+
     <color name="colorBlack">#212121</color>
 </resources>
