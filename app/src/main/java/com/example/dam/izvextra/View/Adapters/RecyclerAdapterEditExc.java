@@ -43,11 +43,8 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public ExcursionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-<<<<<<< HEAD
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_edit, parent, false);
-=======
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler, parent, false);
->>>>>>> parent of eecf2ae... Cambio de Color con Hilos, pero da el mismo fallo
+
 
         ExcursionViewHolder evh = new ExcursionViewHolder(itemView);
 

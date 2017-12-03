@@ -1,13 +1,6 @@
 package com.example.dam.izvextra.View;
 
-<<<<<<< HEAD
-import android.os.Bundle;
-=======
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.service.notification.StatusBarNotification;
->>>>>>> parent of eecf2ae... Cambio de Color con Hilos, pero da el mismo fallo
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -20,11 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-<<<<<<< HEAD
-=======
-import android.view.View;
-import android.widget.ImageView;
->>>>>>> parent of eecf2ae... Cambio de Color con Hilos, pero da el mismo fallo
+
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
