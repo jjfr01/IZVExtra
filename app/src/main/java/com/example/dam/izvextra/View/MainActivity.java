@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar actionbar;
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
-    private Excursion holderExcursion;
     private ArrayList<Excursion> excs = new ArrayList<>();
 
     private void init() {
@@ -67,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             //No recreamos el Activity -- Solución que le doy para evitar que se recree al girar el dispositivo
+            excs = savedInstanceState.getParcelableArrayList("Array");
 
         }
 
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("Array", excs);
     }
 
     public void changeFragment(Fragment fragment) {
