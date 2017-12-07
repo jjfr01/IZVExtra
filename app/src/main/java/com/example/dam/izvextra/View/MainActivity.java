@@ -1,5 +1,6 @@
 package com.example.dam.izvextra.View;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,9 +10,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -106,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_icon, menu);
+
         return true;
     }
 
@@ -119,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
                 drawerlayout.openDrawer(GravityCompat.START);
 
                 return true;
+
+            case R.id.action_filter:
+
+                launchDialogFilter();
+
+                break;
 
 
         }
@@ -189,11 +203,89 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void uncheckedHomeItem() {
+    private void launchDialogFilter() {
+
+        Button btnFilter, btnClose;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        LayoutInflater li = this.getLayoutInflater();
+        final AlertDialog ad;
+
+        alert.setView(li.inflate((R.layout.filter_window), null));
+
+        alert.setTitle("Filtro");
+
+        ad = alert.create();
+        ad.show();
+
+        initSpinnersFilter(ad);
+
+        btnFilter = ad.findViewById(R.id.btnFilter);
+        btnClose = ad.findViewById(R.id.btnClose);
+
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ad.cancel();
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.cancel();
+            }
+        });
+
+    }
+
+    private void initSpinnersFilter(AlertDialog ad) {
+
+
+        Spinner spiGroup, spiDate;
+
+        spiGroup = ad.findViewById(R.id.spiGroup);
+        spiDate = ad.findViewById(R.id.spiDate);
+
+        ArrayList<Group> grps = new ArrayList<>();
+
+        Group nuevo = new Group("2ºDAM", 1);
+
+        grps.add(nuevo);
+
+        nuevo = new Group("2ºDAW", 1);
+
+        grps.add(nuevo);
+
+
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, getStringArrayGroups(grps), android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.spinner_item, getStringArrayGroups(grps));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+
+        spiGroup.setAdapter(adapter);
+
+
+    }
+
+    private ArrayList<String> getStringArrayGroups(ArrayList<Group> arrayGroups) {
+
+        ArrayList<String> result = new ArrayList<>();
+
+            for (int i = 0; i < arrayGroups.size(); i++) {
+
+                result.add(arrayGroups.get(i).getNameGroup());
+
+            }
+
+        return result;
+    }
+
+    /*public void uncheckedHomeItem() {
 
         navigationView.getMenu().getItem(0).setChecked(false);
 
-    }
+    }*/
 
     private void getArray() {//Esto es temporal
 
