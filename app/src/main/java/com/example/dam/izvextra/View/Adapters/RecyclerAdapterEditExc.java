@@ -91,7 +91,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
             tvPlace.setText(s.getPlace());
             tvGroups.setText("Grupos: " + getStringGroups(s.getGroups()));
             tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
-            tvDate.setText(getDateFormat(s.getDate()));
+            tvDate.setText(s.getDate());
             //tvHour.setText(s.getHour());
 
             cv1.setOnClickListener(new View.OnClickListener() {

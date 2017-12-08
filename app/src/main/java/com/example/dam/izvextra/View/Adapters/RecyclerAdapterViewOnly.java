@@ -91,7 +91,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
             tvPlace.setText(s.getPlace());
             tvGroups.setText("Grupos: " + getStringGroups(s.getGroups()));
             tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
-            tvDate.setText(getDateFormat(s.getDate()));
+            tvDate.setText(s.getDate());
             //tvHour.setText(s.getHour());
 
             cv1.setOnClickListener(new View.OnClickListener() {
@@ -140,16 +140,6 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
 
             }
         }
-
-        return result;
-    }
-
-    private String getDateFormat(Date date) {
-
-        String result = "";
-
-        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
-        result = format.format(date);
 
         return result;
     }

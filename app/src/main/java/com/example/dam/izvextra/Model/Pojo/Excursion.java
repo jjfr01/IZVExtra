@@ -11,19 +11,18 @@ public class Excursion implements Parcelable {
 
     private ArrayList<Teacher> teachers;
     private ArrayList<Group> groups;
-    private String description, place, hour;
-    private Date date;
+    private String description, place, date, hour;
 
     public Excursion() {
     }
 
-    public Excursion(ArrayList<Teacher> teachers, ArrayList<Group> groups, String description, String place, String hour, Date date) {
+    public Excursion(ArrayList<Teacher> teachers, ArrayList<Group> groups, String description, String place, String date, String hour) {
         this.teachers = teachers;
         this.groups = groups;
         this.description = description;
         this.place = place;
-        this.hour = hour;
         this.date = date;
+        this.hour = hour;
     }
 
     protected Excursion(Parcel in) {
@@ -31,6 +30,7 @@ public class Excursion implements Parcelable {
         groups = in.createTypedArrayList(Group.CREATOR);
         description = in.readString();
         place = in.readString();
+        date = in.readString();
         hour = in.readString();
     }
 
@@ -78,20 +78,20 @@ public class Excursion implements Parcelable {
         this.place = place;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getHour() {
         return hour;
     }
 
     public void setHour(String hour) {
         this.hour = hour;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     @Override
@@ -105,6 +105,7 @@ public class Excursion implements Parcelable {
         parcel.writeTypedList(groups);
         parcel.writeString(description);
         parcel.writeString(place);
+        parcel.writeString(date);
         parcel.writeString(hour);
     }
 }

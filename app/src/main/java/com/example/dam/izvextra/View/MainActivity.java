@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,7 @@ import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Fragments.AdminFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -260,10 +262,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, getStringArrayGroups(grps), android.R.layout.simple_spinner_item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.spinner_item, getStringArrayGroups(grps));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayGroups(grps));
         adapter.setDropDownViewResource(R.layout.spinner_item);
 
         spiGroup.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayDate(excs));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+
+        spiDate.setAdapter(adapter);
 
 
     }
@@ -272,11 +279,48 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> result = new ArrayList<>();
 
-            for (int i = 0; i < arrayGroups.size(); i++) {
+        for (int i = 0; i < arrayGroups.size(); i++) {
 
-                result.add(arrayGroups.get(i).getNameGroup());
+            result.add(arrayGroups.get(i).getNameGroup());
+
+        }
+
+        return result;
+    }
+
+    private ArrayList<String> getStringArrayDate(ArrayList<Excursion> arrayExcs) {
+
+        ArrayList<String> result = new ArrayList<>();
+
+        result.add(arrayExcs.get(0).getDate());
+
+        for (int i = 0; i < arrayExcs.size(); i++) {
+
+            boolean control = true;
+
+            for (int o = 0; o < result.size() && control; o++) {
+
+                Log.d("Prueba", arrayExcs.get(i).getDate() + "--" + result.get(o));
+
+                if (arrayExcs.get(i).getDate().equals(result.get(o))) {
+
+                    Log.d("Prueba", "Está");
+
+                    control = false;
+
+                }
 
             }
+
+            if (control == true) {
+
+                Log.d("Prueba", "Añadido");
+
+                result.add(arrayExcs.get(i).getDate());
+
+            }
+
+        }
 
         return result;
     }
@@ -306,13 +350,50 @@ public class MainActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             Date newDate = calendar.getTime();
 
-            Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "11:15", newDate);
+            Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", getDateFormat(newDate), "11:15");
 
             excs.add(exc);
 
         }
 
-            /*
+        ArrayList<Teacher> tchs = new ArrayList<>();
+        Teacher tch = new Teacher("Juanjo", "Fernandez", 1);
+        tchs.add(tch);
+        tch = new Teacher("Pepe", "Pepazo", 2);
+        tchs.add(tch);
+        tch = new Teacher("Antonia", "Lozano", 3);
+        tchs.add(tch);
+
+        Group grp = new Group("2º DAM", 1);
+        ArrayList<Group> grps = new ArrayList<>();
+        grps.add(grp);
+
+        Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-Dec-2017", "14:45");
+
+        excs.add(exc);
+
+        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-Dec-2017", "14:45");
+
+        excs.add(exc);
+
+        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-Sep-2017", "14:45");
+
+        excs.add(exc);
+
+
+    }
+
+    private String getDateFormat(Date date) {
+
+        String result = "";
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
+        result = format.format(date);
+
+        return result;
+    }
+
+    /*
             //View -- Aqui
             Presenter ps = new Presenter();
 
@@ -335,8 +416,6 @@ public class MainActivity extends AppCompatActivity {
 
                 return array;
 
-           }
-*/
-    }
+           }*/
 
 }
