@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_icon, menu);
 
@@ -138,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -157,19 +157,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.menu_home:
+
                         fragment = new MainFragment();
                         bundle = new Bundle();
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+
                         break;
 
                     case R.id.menu_admin:
+
                         fragment = new AdminFragment();
                         bundle = new Bundle();
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+
                         break;
 
                     case R.id.menu_group:
@@ -189,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_help:
 
                         break;
-
 
                 }
 
@@ -246,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSpinnersFilter(AlertDialog ad) {
 
-
         Spinner spiGroup, spiDate;
 
         spiGroup = ad.findViewById(R.id.spiGroup);
@@ -261,7 +263,6 @@ public class MainActivity extends AppCompatActivity {
         nuevo = new Group("2ºDAW", 1);
 
         grps.add(nuevo);
-
 
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, getStringArrayGroups(grps), android.R.layout.simple_spinner_item);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayGroups(grps));
@@ -280,6 +281,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> getStringArrayGroups(ArrayList<Group> arrayGroups) {
 
         ArrayList<String> result = new ArrayList<>();
+
+        result.add("Cualquiera");
 
         for (int i = 0; i < arrayGroups.size(); i++) {
 
@@ -319,6 +322,35 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+        //Ordenamos el Array
+        orderArrayDate(result);
+
+        ArrayList<String> aux = new ArrayList<>();
+
+        aux.add("Cualquiera");
+
+        for (int i = 0; i < result.size(); i++) {
+
+            aux.add(result.get(i));
+
+        }
+
+        result = aux;
+
+        return result;
+    }
+
+    private String getDateFormat(Date date) {
+
+        String result = "";
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        result = format.format(date);
+
+        return result;
+    }
+
+    private void orderArrayDate(ArrayList<String> result) {
 
         Collections.sort(result, new Comparator<String>() {
 
@@ -339,24 +371,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        return result;
     }
-
-    private String getDateFormat(Date date) {
-
-        String result = "";
-
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        result = format.format(date);
-
-        return result;
-    }
-
-    /*public void uncheckedHomeItem() {
-
-        navigationView.getMenu().getItem(0).setChecked(false);
-
-    }*/
 
     private void getArray() {//Esto es temporal
 
@@ -395,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Group> grps = new ArrayList<>();
         grps.add(grp);
 
-        Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-12-2017", "14:45");
+        Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "01-09-2018", "14:45");
 
         excs.add(exc);
 
@@ -403,14 +418,12 @@ public class MainActivity extends AppCompatActivity {
 
         excs.add(exc);
 
-        exc = new Excursion(tchs, grps, "Prueba", "Casa", "01-09-2018", "14:45");
+        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-12-2017", "14:45");
 
         excs.add(exc);
 
 
     }
-
-
 
     /*
             //View -- Aqui

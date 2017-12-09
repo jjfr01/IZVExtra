@@ -7,49 +7,53 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/spiGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginBottom="8dp" />
+        <Spinner
+            android:id="@+id/spiGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spiDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginBottom="8dp" />
+        <Spinner
+            android:id="@+id/spiDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spiGroup" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/btnFilter"
             style="?android:attr/borderlessButtonStyle"
-            android:textColor="@color/colorPrimary"
-            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Filtrar" />
+            android:layout_margin="8dp"
+            android:text="Filtrar"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btnClose"
             style="?android:attr/borderlessButtonStyle"
-            android:textColor="@color/colorPrimary"
-            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
             android:layout_toLeftOf="@+id/btnFilter"
             android:layout_toStartOf="@+id/btnFilter"
-            android:text="Cerrar" />
+            android:text="Cerrar"
+            android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 
 </LinearLayout>
