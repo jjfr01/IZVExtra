@@ -31,6 +31,8 @@ import com.example.dam.izvextra.View.Fragments.MainFragment;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -300,12 +302,9 @@ public class MainActivity extends AppCompatActivity {
 
             for (int o = 0; o < result.size() && control; o++) {
 
-                Log.d("Prueba", arrayExcs.get(i).getDate() + "--" + result.get(o));
-
                 if (arrayExcs.get(i).getDate().equals(result.get(o))) {
 
-                    Log.d("Prueba", "Está");
-
+                    //Está ya
                     control = false;
 
                 }
@@ -314,13 +313,41 @@ public class MainActivity extends AppCompatActivity {
 
             if (control == true) {
 
-                Log.d("Prueba", "Añadido");
-
+                //No está y lo añadimos
                 result.add(arrayExcs.get(i).getDate());
 
             }
 
         }
+
+        Collections.sort(result, new Comparator<String>() {
+
+            @Override
+            public int compare(String arg0, String arg1) {
+                SimpleDateFormat format = new SimpleDateFormat(
+                        "dd-MM-yyyy");
+                int compareResult = 0;
+                try {
+                    Date arg0Date = format.parse(arg0);
+                    Date arg1Date = format.parse(arg1);
+                    compareResult = arg0Date.compareTo(arg1Date);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    compareResult = arg0.compareTo(arg1);
+                }
+                return compareResult;
+            }
+        });
+
+        return result;
+    }
+
+    private String getDateFormat(Date date) {
+
+        String result = "";
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        result = format.format(date);
 
         return result;
     }
@@ -368,30 +395,22 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Group> grps = new ArrayList<>();
         grps.add(grp);
 
-        Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-Dec-2017", "14:45");
+        Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-12-2017", "14:45");
 
         excs.add(exc);
 
-        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-Dec-2017", "14:45");
+        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-12-2017", "14:45");
 
         excs.add(exc);
 
-        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-Sep-2017", "14:45");
+        exc = new Excursion(tchs, grps, "Prueba", "Casa", "01-09-2018", "14:45");
 
         excs.add(exc);
 
 
     }
 
-    private String getDateFormat(Date date) {
 
-        String result = "";
-
-        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
-        result = format.format(date);
-
-        return result;
-    }
 
     /*
             //View -- Aqui
