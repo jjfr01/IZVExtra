@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
     private ArrayList<Excursion> excs = new ArrayList<>();
+
+    private String filterGroup = "";
+    private String filterDate = "";
+    private int fragmentSelected = 0;
 
     private void init() {
 
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            getArray();
+            excs = getArray();
 
             defaultFragment();
 
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             //No recreamos el Activity -- Solución que le doy para evitar que se recree al girar el dispositivo
             excs = savedInstanceState.getParcelableArrayList("Array");
+            fragmentSelected = savedInstanceState.getInt("FragmentSelected");
 
         }
 
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("Array", excs);
+        outState.putInt("FragmentSelected", fragmentSelected);
     }
 
     public void changeFragment(Fragment fragment) {
@@ -110,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem item = navigationView.getMenu().getItem(0);
         item.setChecked(true);
+
+        fragmentSelected = 1;
 
     }
 
@@ -163,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+                        fragmentSelected = 1;
 
                         break;
 
@@ -173,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
+                        fragmentSelected = 2;
 
                         break;
 
@@ -234,6 +246,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                filterArray();
+
                 ad.cancel();
             }
         });
@@ -244,6 +258,110 @@ public class MainActivity extends AppCompatActivity {
                 ad.cancel();
             }
         });
+
+    }
+
+    private void filterArray() {
+
+        ArrayList<Excursion> result = new ArrayList<>();
+
+        ArrayList<Excursion> aux = getArray();
+
+        if (!filterGroup.equals("Seleccione Grupo") || !filterDate.equals("Seleccione Fecha")) {
+
+            if (filterGroup.equals("Cualquiera") && filterDate.equals("Cualquiera")) {
+                //No tocamos el Array
+                result = getArray();
+
+            } else if ((filterGroup.equals("Cualquiera") || filterGroup.equals("Seleccione Grupo")) && (filterDate.equals("Cualquiera") || filterDate.equals("Seleccione Fecha"))) {
+                //No tocamos el Array
+                result = getArray();
+
+            } else if ((!filterGroup.equals("Cualquiera") && !filterGroup.equals("Seleccione Grupo")) && (filterDate.equals("Cualquiera") || filterDate.equals("Seleccione Fecha"))) {
+
+                for (int i = 0; i < aux.size(); i++) {
+
+                    ArrayList<Group> grps = aux.get(i).getGroups();
+
+                    boolean control = true;
+
+                    for (int o = 0; o < grps.size() && control; o++) {
+
+                        if (grps.get(o).getNameGroup().equals(filterGroup)) {
+
+                            control = false;
+
+                            result.add(aux.get(i));
+
+
+                        }
+
+                    }
+
+                }
+
+            } else if ((filterGroup.equals("Cualquiera") || filterGroup.equals("Seleccione Grupo")) && (!filterDate.equals("Cualquiera") && !filterDate.equals("Seleccione Fecha"))) {
+
+                for (int i = 0; i < aux.size(); i++) {
+
+                    if (aux.get(i).getDate().equals(filterDate)) {
+
+                        result.add(aux.get(i));
+
+                    }
+
+                }
+
+            } else if ((!filterGroup.equals("Cualquiera") && !filterGroup.equals("Seleccione Grupo")) && (!filterDate.equals("Cualquiera") && !filterDate.equals("Seleccione Fecha"))) {
+
+                for (int i = 0; i < aux.size(); i++) {
+
+                    ArrayList<Group> grps = aux.get(i).getGroups();
+
+                    boolean control = true;
+
+                    for (int o = 0; o < grps.size() && control; o++) {
+
+                        if (grps.get(o).getNameGroup().equals(filterGroup) && aux.get(i).getDate().equals(filterDate)) {
+
+                            control = false;
+
+                            result.add(aux.get(i));
+
+                        }
+
+                    }
+
+                }
+            }
+
+            excs = result;
+
+            sendDataFragment(result);
+
+        }
+
+    }
+
+    private void sendDataFragment(ArrayList<Excursion> result) {
+
+        switch (fragmentSelected) {
+
+            case 1:
+
+                MainFragment mf = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
+                mf.updateFilterArray(result);
+
+                break;
+
+            case 2:
+
+                AdminFragment af = (AdminFragment) getSupportFragmentManager().findFragmentById(R.id.fragMain);
+                af.updateFilterArray(result);
+
+                break;
+
+        }
 
     }
 
@@ -260,7 +378,23 @@ public class MainActivity extends AppCompatActivity {
 
         grps.add(nuevo);
 
-        nuevo = new Group("2ºDAW", 1);
+        nuevo = new Group("2ºDAW", 2);
+
+        grps.add(nuevo);
+
+        nuevo = new Group("1ºDAW", 3);
+
+        grps.add(nuevo);
+
+        nuevo = new Group("1ºDAM", 4);
+
+        grps.add(nuevo);
+
+        nuevo = new Group("1ºBachiller", 5);
+
+        grps.add(nuevo);
+
+        nuevo = new Group("2ºBachiller", 6);
 
         grps.add(nuevo);
 
@@ -270,10 +404,44 @@ public class MainActivity extends AppCompatActivity {
 
         spiGroup.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayDate(excs));
+        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayDate(getArray()));
         adapter.setDropDownViewResource(R.layout.spinner_item);
 
         spiDate.setAdapter(adapter);
+
+        spiGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Object item = adapterView.getSelectedItem();
+
+                filterGroup = item.toString();
+
+                //Snackbar.make(view, filterGroup, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spiDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Object item = adapterView.getSelectedItem();
+
+                filterDate = item.toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
     }
@@ -324,6 +492,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
         //Ordenamos el Array
         orderArrayDate(result);
 
@@ -377,7 +546,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getArray() {//Esto es temporal
+    private ArrayList<Excursion> getArray() {//Esto es temporal
+
+        ArrayList<Excursion> excs = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
 
@@ -389,7 +560,7 @@ public class MainActivity extends AppCompatActivity {
             tch = new Teacher("Antonia", "Lozano", 3);
             tchs.add(tch);
 
-            Group grp = new Group("2º DAM", 1);
+            Group grp = new Group("2ºDAM", 1);
             ArrayList<Group> grps = new ArrayList<>();
             grps.add(grp);
 
@@ -410,7 +581,7 @@ public class MainActivity extends AppCompatActivity {
         tch = new Teacher("Antonia", "Lozano", 3);
         tchs.add(tch);
 
-        Group grp = new Group("2º DAM", 1);
+        Group grp = new Group("2ºDAM", 1);
         ArrayList<Group> grps = new ArrayList<>();
         grps.add(grp);
 
@@ -426,7 +597,7 @@ public class MainActivity extends AppCompatActivity {
 
         excs.add(exc);
 
-
+        return excs;
     }
 
     /*

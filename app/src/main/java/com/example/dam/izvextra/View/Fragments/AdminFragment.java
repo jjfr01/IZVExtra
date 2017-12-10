@@ -69,4 +69,13 @@ public class AdminFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("Array", excs);
     }
+
+    public void updateFilterArray(ArrayList<Excursion> updated){
+
+        excs = updated;
+        ra.updateArray(updated);
+        ra.notifyDataSetChanged();
+
+    }
+
 }

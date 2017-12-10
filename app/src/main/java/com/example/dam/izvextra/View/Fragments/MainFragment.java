@@ -63,6 +63,14 @@ public class MainFragment extends Fragment {
         outState.putParcelableArrayList("Array", excs);
     }
 
+    public void updateFilterArray(ArrayList<Excursion> updated){
+
+        excs = updated;
+        ra.updateArray(updated);
+        ra.notifyDataSetChanged();
+
+    }
+
 
 
 }
