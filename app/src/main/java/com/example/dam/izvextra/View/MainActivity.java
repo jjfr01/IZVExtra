@@ -282,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> result = new ArrayList<>();
 
+        result.add("Seleccione Grupo");
+
         result.add("Cualquiera");
 
         for (int i = 0; i < arrayGroups.size(); i++) {
@@ -326,6 +328,8 @@ public class MainActivity extends AppCompatActivity {
         orderArrayDate(result);
 
         ArrayList<String> aux = new ArrayList<>();
+
+        aux.add("Seleccione Fecha");
 
         aux.add("Cualquiera");
 
