@@ -2,7 +2,6 @@ package com.example.dam.izvextra.View.Fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
-import com.example.dam.izvextra.Model.Pojo.Group;
-import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Adapters.RecyclerAdapterViewOnly;
-import com.example.dam.izvextra.View.MainActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class MainFragment extends Fragment {
 
@@ -48,7 +42,7 @@ public class MainFragment extends Fragment {
 
         }
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rvViewOnly);
+        RecyclerView rv = view.findViewById(R.id.rvViewOnly);
         ra = new RecyclerAdapterViewOnly(excs, view.getContext(), getActivity());
         rv.setAdapter(ra);
 

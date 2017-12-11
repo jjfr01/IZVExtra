@@ -93,8 +93,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
         outState.putParcelableArrayList("Array", excs);
         outState.putInt("FragmentSelected", fragmentSelected);
+
     }
 
     public void changeFragment(Fragment fragment) {
@@ -208,11 +210,12 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                if (FragmentTransaction == true) {
+                if (FragmentTransaction) {
 
                     changeFragment(fragment);
                     item.setChecked(true);
                     drawerlayout.closeDrawers();
+
                 }
 
                 return true;
@@ -292,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
                             control = false;
 
                             result.add(aux.get(i));
-
 
                         }
 
@@ -484,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            if (control == true) {
+            if (control) {
 
                 //No está y lo añadimos
                 result.add(arrayExcs.get(i).getDate());
@@ -502,11 +504,7 @@ public class MainActivity extends AppCompatActivity {
 
         aux.add("Cualquiera");
 
-        for (int i = 0; i < result.size(); i++) {
-
-            aux.add(result.get(i));
-
-        }
+        aux.addAll(result);//Añade el contenido del Array result en el aux
 
         result = aux;
 
@@ -529,8 +527,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int compare(String arg0, String arg1) {
-                SimpleDateFormat format = new SimpleDateFormat(
-                        "dd-MM-yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 int compareResult = 0;
                 try {
                     Date arg0Date = format.parse(arg0);
