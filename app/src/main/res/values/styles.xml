@@ -15,4 +15,16 @@
         <item name="android:dividerHeight">1dp</item>
     </style>
 
+    <style name="ExpandedTitleModi" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CollapsingTitleModi" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

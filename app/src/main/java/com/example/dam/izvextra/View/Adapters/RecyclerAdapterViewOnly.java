@@ -2,6 +2,7 @@ package com.example.dam.izvextra.View.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -10,11 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
+import com.example.dam.izvextra.View.Fragments.MainFragment;
+import com.example.dam.izvextra.View.MainActivity;
+import com.example.dam.izvextra.View.ViewActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -98,6 +103,8 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
                 @Override
                 public void onClick(View view) {
 
+                    Intent intent = new Intent(context, ViewActivity.class);
+                    ((MainActivity)context).startActivity(intent);
                 }
             });
 
