@@ -104,7 +104,8 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
                 public void onClick(View view) {
 
                     Intent intent = new Intent(context, ViewActivity.class);
-                    ((MainActivity)context).startActivity(intent);
+                    intent.putExtra("Excursion", s);
+                    context.startActivity(intent);
                 }
             });
 
