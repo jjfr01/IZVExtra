@@ -561,6 +561,9 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<Group> grps = new ArrayList<>();
             grps.add(grp);
 
+            grp = new Group("2ºDAW", 2);
+            grps.add(grp);
+
             Calendar calendar = Calendar.getInstance();
             Date newDate = calendar.getTime();
 
