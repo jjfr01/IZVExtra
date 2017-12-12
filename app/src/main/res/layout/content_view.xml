@@ -15,14 +15,14 @@
         android:text="Prueba"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleDescription"
+        app:layout_constraintBottom_toTopOf="@+id/titleVDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/titleDescription"
+        android:id="@+id/titleVDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/titleVDescription" />
 
     <TextView
         android:id="@+id/titleGroup"
@@ -93,14 +93,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleDate"
+        app:layout_constraintBottom_toTopOf="@+id/titleVDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTeacher" />
 
     <TextView
-        android:id="@+id/titleDate"
+        android:id="@+id/titleVDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -119,14 +119,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleHour"
+        app:layout_constraintBottom_toTopOf="@+id/titleVHour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleDate" />
+        app:layout_constraintTop_toBottomOf="@+id/titleVDate" />
 
     <TextView
-        android:id="@+id/titleHour"
+        android:id="@+id/titleVHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -152,6 +152,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleHour" />
+        app:layout_constraintTop_toBottomOf="@+id/titleVHour" />
 
 </android.support.constraint.ConstraintLayout>
