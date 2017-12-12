@@ -5,15 +5,21 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -22,6 +28,8 @@ import com.example.dam.izvextra.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -29,7 +37,9 @@ public class EditActivity extends AppCompatActivity {
     private LinearLayout lleditGroup;
     private TextInputEditText tietPlace;
     private EditText etDescription;
-    private ImageView imgDate;
+    private ImageView imgDate, imgHour;
+    private TextView tvDate, tvHour;
+    private Toolbar toolbarEdit;
     private ArrayList<Group> grps = new ArrayList<>();
     private ArrayList<Teacher> tchs = new ArrayList<>();
     private ArrayList<CheckBox> cbG = new ArrayList<>();
@@ -41,16 +51,32 @@ public class EditActivity extends AppCompatActivity {
 
     private void init() {
 
+        toolbarEdit = findViewById(R.id.toolbarEdit);
+
+        setSupportActionBar(toolbarEdit);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         lleditTeacher = findViewById(R.id.lleditTeacher);
         lleditGroup = findViewById(R.id.lleditGroup);
         etDescription = findViewById(R.id.etDescription);
         tietPlace = findViewById(R.id.tietPlace);
         imgDate = findViewById(R.id.imgDate);
+        imgHour = findViewById(R.id.imgHour);
+        tvDate = findViewById(R.id.tvDate);
+        tvHour = findViewById(R.id.tvHour);
 
         imgDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 launchDialogDate();
+            }
+        });
+
+        imgHour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchDialogHour();
             }
         });
 
@@ -69,7 +95,7 @@ public class EditActivity extends AppCompatActivity {
 
         genereCBGroups();
 
-        if (isTablet(this)){
+        if (isTablet(this)) {
 
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -97,7 +123,7 @@ public class EditActivity extends AppCompatActivity {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    private void loadData(){
+    private void loadData() {
 
         grps = getIntent().getParcelableArrayListExtra("Groups");
         tchs = getIntent().getParcelableArrayListExtra("Teachers");
@@ -106,6 +132,8 @@ public class EditActivity extends AppCompatActivity {
 
         tietPlace.setText(exc.getPlace());
         etDescription.setText(exc.getDescription());
+        tvDate.setText(exc.getDate());
+        tvHour.setText(exc.getHour());
 
     }
 
@@ -226,6 +254,9 @@ public class EditActivity extends AppCompatActivity {
 
     private void launchDialogDate() {
 
+        Button btnDate, btnDClose;
+        final DatePicker datePicker;
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         LayoutInflater li = this.getLayoutInflater();
         final AlertDialog ad;
@@ -235,6 +266,103 @@ public class EditActivity extends AppCompatActivity {
         ad = alert.create();
         ad.show();
 
+        btnDate = ad.findViewById(R.id.btnDate);
+        btnDClose = ad.findViewById(R.id.btnDClose);
+        datePicker = ad.findViewById(R.id.datePicker);
+
+        btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                tvDate.setText(getDateFromDatePicker(datePicker));
+
+                ad.cancel();
+            }
+        });
+
+        btnDClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.cancel();
+            }
+        });
+
+    }
+
+    private String getDateFromDatePicker(DatePicker datePicker) {
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth() + 1;
+        int year = datePicker.getYear();
+
+
+        return day + "-" + month + "-" + year;
+    }
+
+    private void launchDialogHour() {
+
+        Button btnHour, btnHClose;
+        final TimePicker timePicker;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        LayoutInflater li = this.getLayoutInflater();
+        final AlertDialog ad;
+
+        alert.setView(li.inflate((R.layout.hour_window), null));
+
+        ad = alert.create();
+        ad.show();
+
+        btnHour = ad.findViewById(R.id.btnHour);
+        btnHClose = ad.findViewById(R.id.btnHClose);
+        timePicker = ad.findViewById(R.id.timePicker);
+
+        btnHour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                tvHour.setText(getHourFromTimePicker(timePicker));
+
+                ad.cancel();
+            }
+        });
+
+        btnHClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.cancel();
+            }
+        });
+
+    }
+
+    private String getHourFromTimePicker(TimePicker timePicker) {
+
+        String minute = "";
+        String hour = "";
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+
+            hour = String.valueOf(timePicker.getHour());
+            minute = String.valueOf(timePicker.getMinute());
+
+        } else {
+
+            hour = String.valueOf(timePicker.getCurrentHour());
+            minute = String.valueOf(timePicker.getCurrentMinute());
+
+        }
+
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+
+        return hour + ":" + minute;
     }
 
 }
+
+

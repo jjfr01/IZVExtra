@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     tools:showIn="@layout/activity_edit">
 
 
@@ -104,8 +103,7 @@
         app:layout_constraintEnd_toStartOf="@id/imgHour"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lleditGroup"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/lleditGroup"/>
 
     <TextView
         android:id="@+id/tvDate"
@@ -123,7 +121,6 @@
         android:layout_margin="8dp"
         android:src="@drawable/ic_hour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgDate"
         app:layout_constraintTop_toBottomOf="@id/lleditGroup" />
 
@@ -135,6 +132,20 @@
         android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="@id/imgHour"
         app:layout_constraintTop_toBottomOf="@id/imgHour"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        android:layout_marginTop="8dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
 
 </android.support.constraint.ConstraintLayout>
