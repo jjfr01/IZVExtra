@@ -2,18 +2,21 @@ package com.example.dam.izvextra.View.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
+import com.example.dam.izvextra.View.EditActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ import java.util.Date;
 public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapterEditExc.ExcursionViewHolder> {
 
     private ArrayList<Excursion> datos;
+    private ArrayList<Group> grps;
+    private ArrayList<Teacher> tchs;
     private Context context;
     private FragmentActivity fragmentActivity;
 
@@ -34,10 +39,12 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
         this.context = context;
     }
 
-    public RecyclerAdapterEditExc(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity) {
+    public RecyclerAdapterEditExc(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity, ArrayList<Group> grps, ArrayList<Teacher> tchs) {
         this.datos = datos;
         this.context = context;
         this.fragmentActivity = fragmentActivity;
+        this.grps = grps;
+        this.tchs = tchs;
     }
 
     @Override
@@ -73,9 +80,8 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
     public class ExcursionViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvPlace, tvGroups, tvTeachers, tvDate, tvHour;
-        private CardView cv1;
-
+        private TextView tvPlace, tvGroups, tvTeachers, tvDate;
+        private ImageView ibtnEdit;
 
         public ExcursionViewHolder(View itemView) {
             super(itemView);
@@ -83,24 +89,33 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
             tvGroups = itemView.findViewById(R.id.tvGroups);
             tvTeachers = itemView.findViewById(R.id.tvTeachers);
             tvDate = itemView.findViewById(R.id.tvDate);
-            //tvHour = (TextView) itemView.findViewById(R.id.tvHour);
-            cv1 = itemView.findViewById(R.id.cv1);
+            ibtnEdit = itemView.findViewById(R.id.ibtnEdit);
         }
 
         public void bindExcursion(final Excursion s) {
             tvPlace.setText(s.getPlace());
-            tvGroups.setText("Grupos: " + getStringGroups(s.getGroups()));
-            tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
+            tvGroups.setText("Grupos: " + s.getGroups());
+            tvTeachers.setText("Profesores: " + s.getTeachers());
             tvDate.setText(s.getDate());
-            //tvHour.setText(s.getHour());
 
-            cv1.setOnClickListener(new View.OnClickListener() {
+            ibtnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    int accion = 1;
+
+                    Intent intent = new Intent(context, EditActivity.class);
+                    intent.putExtra("Excursion", s);
+                    intent.putExtra("Groups", grps);
+                    intent.putExtra("Teachers", tchs);
+                    intent.putExtra("Accion", accion);
+                    context.startActivity(intent);
 
 
                 }
             });
+
+
 
         }
     }
@@ -141,16 +156,6 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
             }
         }
-
-        return result;
-    }
-
-    private String getDateFormat(Date date) {
-
-        String result = "";
-
-        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
-        result = format.format(date);
 
         return result;
     }

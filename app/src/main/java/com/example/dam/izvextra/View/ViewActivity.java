@@ -10,6 +10,7 @@ import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ViewActivity extends AppCompatActivity {
 
@@ -42,16 +43,20 @@ public class ViewActivity extends AppCompatActivity {
 
     private void loadData() {
 
+        ArrayList<String> grps = new ArrayList<>(Arrays.asList(exc.getGroups().split(", ")));
+
+        ArrayList<String> tchs = new ArrayList<>(Arrays.asList(exc.getTeachers().split(", ")));
+
         tvPlace.setText(exc.getPlace());
         tvDescripcion.setText(exc.getDescription());
-        tvGroup.setText(getStringArrayGroup(exc.getGroups()));
-        tvTeacher.setText(getStringArrayTeacher(exc.getTeachers()));
+        tvGroup.setText(getStringtoArray(grps));
+        tvTeacher.setText(getStringtoArray(tchs));
         tvDate.setText(exc.getDate());
         tvHour.setText(exc.getHour());
 
     }
 
-    private String getStringArrayGroup(ArrayList<Group> array) {
+    private String getStringtoArray(ArrayList<String> array) {
 
         String result = "";
 
@@ -59,32 +64,11 @@ public class ViewActivity extends AppCompatActivity {
 
             if (i != array.size() - 1) {
 
-                result += array.get(i).getNameGroup() + "\n";
+                result += array.get(i) + "\n";
 
             } else {
 
-                result += array.get(i).getNameGroup();
-
-            }
-
-        }
-
-        return result;
-    }
-
-    private String getStringArrayTeacher(ArrayList<Teacher> array) {
-
-        String result = "";
-
-        for (int i = 0; i < array.size(); i++) {
-
-            if(i != array.size()-1) {
-
-                result += array.get(i).getNameTeacher() + " " + array.get(i).getLastName() + "\n";
-
-            } else {
-
-                result += array.get(i).getNameTeacher() + " " + array.get(i).getLastName();
+                result += array.get(i);
 
             }
 

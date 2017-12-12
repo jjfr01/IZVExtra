@@ -32,6 +32,7 @@ import com.example.dam.izvextra.View.Fragments.MainFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
     private ArrayList<Excursion> excs = new ArrayList<>();
+    private ArrayList<Group> grps = new ArrayList<>();
+    private ArrayList<Teacher> tchs = new ArrayList<>();
 
     private String filterGroup = "";
     private String filterDate = "";
@@ -78,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
             excs = getArray();
 
+            genereGroups();
+
+            genereTeachers();
+
             defaultFragment();
 
         } else {
@@ -85,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
             //No recreamos el Activity -- Solución que le doy para evitar que se recree al girar el dispositivo
             excs = savedInstanceState.getParcelableArrayList("Array");
             fragmentSelected = savedInstanceState.getInt("FragmentSelected");
+
+            genereGroups();
+
+            genereTeachers();
 
         }
 
@@ -156,6 +167,21 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (drawerlayout.isDrawerOpen(GravityCompat.START)) {
+
+            drawerlayout.closeDrawers();
+
+        } else {
+
+            super.onBackPressed();
+
+        }
+
+    }
+
     private void setSettingNavigationDrawer() {
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -184,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new AdminFragment();
                         bundle = new Bundle();
                         bundle.putParcelableArrayList("Array", excs);
+                        bundle.putParcelableArrayList("Groups", grps);
+                        bundle.putParcelableArrayList("Teachers", tchs);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
                         fragmentSelected = 2;
@@ -284,13 +312,13 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < aux.size(); i++) {
 
-                    ArrayList<Group> grps = aux.get(i).getGroups();
+                    ArrayList<String> grps = new ArrayList<>(Arrays.asList(aux.get(i).getGroups().split(", ")));
 
                     boolean control = true;
 
                     for (int o = 0; o < grps.size() && control; o++) {
 
-                        if (grps.get(o).getNameGroup().equals(filterGroup)) {
+                        if (grps.get(o).equals(filterGroup)) {
 
                             control = false;
 
@@ -318,13 +346,13 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < aux.size(); i++) {
 
-                    ArrayList<Group> grps = aux.get(i).getGroups();
+                    ArrayList<String> grps = new ArrayList<>(Arrays.asList(aux.get(i).getGroups().split(", ")));
 
                     boolean control = true;
 
                     for (int o = 0; o < grps.size() && control; o++) {
 
-                        if (grps.get(o).getNameGroup().equals(filterGroup) && aux.get(i).getDate().equals(filterDate)) {
+                        if (grps.get(o).equals(filterGroup) && aux.get(i).getDate().equals(filterDate)) {
 
                             control = false;
 
@@ -549,55 +577,62 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < 2; i++) {
 
-            ArrayList<Teacher> tchs = new ArrayList<>();
-            Teacher tch = new Teacher("Juanjo", "Fernandez", 1);
-            tchs.add(tch);
-            tch = new Teacher("Pepe", "Pepazo", 2);
-            tchs.add(tch);
-            tch = new Teacher("Antonia", "Lozano", 3);
-            tchs.add(tch);
-
-            Group grp = new Group("2ºDAM", 1);
-            ArrayList<Group> grps = new ArrayList<>();
-            grps.add(grp);
-
-            grp = new Group("2ºDAW", 2);
-            grps.add(grp);
 
             Calendar calendar = Calendar.getInstance();
             Date newDate = calendar.getTime();
 
-            Excursion exc = new Excursion(tchs, grps, "PruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPrueba", "Casa", getDateFormat(newDate), "11:15");
+            Excursion exc = new Excursion("PruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPrueba", "Casa", getDateFormat(newDate), "11:15",  "1ºDAW", "Juanjo Fernandez, Pepe Pepazo");
 
             excs.add(exc);
 
         }
 
-        ArrayList<Teacher> tchs = new ArrayList<>();
-        Teacher tch = new Teacher("Juanjo", "Fernandez", 1);
-        tchs.add(tch);
-        tch = new Teacher("Pepe", "Pepazo", 2);
-        tchs.add(tch);
-        tch = new Teacher("Antonia", "Lozano", 3);
-        tchs.add(tch);
 
         Group grp = new Group("2ºDAM", 1);
         ArrayList<Group> grps = new ArrayList<>();
         grps.add(grp);
 
-        Excursion exc = new Excursion(tchs, grps, "Prueba", "Casa", "01-09-2018", "14:45");
+        Excursion exc = new Excursion("Prueba", "Casa", "01-09-2018", "14:45", "2ºDAM, 1ºDAM", "Juanjo Fernandez, Pepe Pepazo");
 
         excs.add(exc);
 
-        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-12-2017", "14:45");
+        exc = new Excursion("Prueba", "Casa", "15-12-2017", "14:45",  "2ºDAM, 1ºDAM", "Juanjo Fernandez, Pepe Pepazo");
 
         excs.add(exc);
 
-        exc = new Excursion(tchs, grps, "Prueba", "Casa", "15-12-2017", "14:45");
+        exc = new Excursion("Prueba", "Casa", "15-12-2017", "14:45", "2ºDAM, 1ºDAM", "Juanjo Fernandez, Pepe Pepazo");
 
         excs.add(exc);
 
         return excs;
+    }
+
+    private void genereGroups() {
+
+
+        Group nuevo = new Group("2ºDAM", 1);
+        grps.add(nuevo);
+
+        nuevo = new Group("2ºDAW", 2);
+        grps.add(nuevo);
+
+        nuevo = new Group("1ºDAM", 3);
+        grps.add(nuevo);
+
+        nuevo = new Group("1ºDAW", 4);
+        grps.add(nuevo);
+
+    }
+
+    private void genereTeachers() {
+
+        Teacher tch = new Teacher("Juanjo Fernandez", 1);
+        tchs.add(tch);
+        tch = new Teacher("Pepe Pepazo", 2);
+        tchs.add(tch);
+        tch = new Teacher("Antonia Lozano", 3);
+        tchs.add(tch);
+
     }
 
     /*

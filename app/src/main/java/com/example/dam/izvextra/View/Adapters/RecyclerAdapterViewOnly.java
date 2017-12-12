@@ -94,8 +94,8 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
 
         public void bindExcursion(final Excursion s) {
             tvPlace.setText(s.getPlace());
-            tvGroups.setText("Grupos: " + getStringGroups(s.getGroups()));
-            tvTeachers.setText("Profesores: " + getStringTeachers(s.getTeachers()));
+            tvGroups.setText("Grupos: " + s.getGroups());
+            tvTeachers.setText("Profesores: " + s.getTeachers());
             tvDate.setText(s.getDate());
             //tvHour.setText(s.getHour());
 

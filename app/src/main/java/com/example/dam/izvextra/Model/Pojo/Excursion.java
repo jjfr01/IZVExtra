@@ -9,29 +9,28 @@ import java.util.Date;
 
 public class Excursion implements Parcelable {
 
-    private ArrayList<Teacher> teachers;
-    private ArrayList<Group> groups;
-    private String description, place, date, hour;
+
+    private String description, place, date, hour, groups, teachers;
 
     public Excursion() {
     }
 
-    public Excursion(ArrayList<Teacher> teachers, ArrayList<Group> groups, String description, String place, String date, String hour) {
-        this.teachers = teachers;
-        this.groups = groups;
+    public Excursion(String description, String place, String date, String hour, String groups, String teachers) {
         this.description = description;
         this.place = place;
         this.date = date;
         this.hour = hour;
+        this.groups = groups;
+        this.teachers = teachers;
     }
 
     protected Excursion(Parcel in) {
-        teachers = in.createTypedArrayList(Teacher.CREATOR);
-        groups = in.createTypedArrayList(Group.CREATOR);
         description = in.readString();
         place = in.readString();
         date = in.readString();
         hour = in.readString();
+        groups = in.readString();
+        teachers = in.readString();
     }
 
     public static final Creator<Excursion> CREATOR = new Creator<Excursion>() {
@@ -45,22 +44,6 @@ public class Excursion implements Parcelable {
             return new Excursion[size];
         }
     };
-
-    public ArrayList<Teacher> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(ArrayList<Teacher> teachers) {
-        this.teachers = teachers;
-    }
-
-    public ArrayList<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(ArrayList<Group> groups) {
-        this.groups = groups;
-    }
 
     public String getDescription() {
         return description;
@@ -94,6 +77,22 @@ public class Excursion implements Parcelable {
         this.hour = hour;
     }
 
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
+    }
+
+    public String getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(String teachers) {
+        this.teachers = teachers;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -101,11 +100,11 @@ public class Excursion implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeTypedList(teachers);
-        parcel.writeTypedList(groups);
         parcel.writeString(description);
         parcel.writeString(place);
         parcel.writeString(date);
         parcel.writeString(hour);
+        parcel.writeString(groups);
+        parcel.writeString(teachers);
     }
 }

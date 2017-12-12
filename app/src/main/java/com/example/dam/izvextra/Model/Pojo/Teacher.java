@@ -6,20 +6,18 @@ import android.os.Parcelable;
 
 public class Teacher implements Parcelable {
 
-    private String nameTeacher, lastName;
+    private String nameTeacher;
     private int idTeacher;
 
     public Teacher() {}
 
-    public Teacher(String nameTeacher, String lastName, int idTeacher) {
+    public Teacher(String nameTeacher, int idTeacher) {
         this.nameTeacher = nameTeacher;
-        this.lastName = lastName;
         this.idTeacher = idTeacher;
     }
 
     protected Teacher(Parcel in) {
         nameTeacher = in.readString();
-        lastName = in.readString();
         idTeacher = in.readInt();
     }
 
@@ -43,14 +41,6 @@ public class Teacher implements Parcelable {
         this.nameTeacher = nameTeacher;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public int getIdTeacher() {
         return idTeacher;
     }
@@ -67,7 +57,6 @@ public class Teacher implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(nameTeacher);
-        parcel.writeString(lastName);
         parcel.writeInt(idTeacher);
     }
 }
