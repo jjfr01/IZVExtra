@@ -11,17 +11,19 @@ public class Excursion implements Parcelable {
 
 
     private String description, place, date, hour, groups, teachers;
+    private int id;
 
     public Excursion() {
     }
 
-    public Excursion(String description, String place, String date, String hour, String groups, String teachers) {
+    public Excursion(String description, String place, String date, String hour, String groups, String teachers, int id) {
         this.description = description;
         this.place = place;
         this.date = date;
         this.hour = hour;
         this.groups = groups;
         this.teachers = teachers;
+        this.id = id;
     }
 
     protected Excursion(Parcel in) {
@@ -31,6 +33,7 @@ public class Excursion implements Parcelable {
         hour = in.readString();
         groups = in.readString();
         teachers = in.readString();
+        id = in.readInt();
     }
 
     public static final Creator<Excursion> CREATOR = new Creator<Excursion>() {
@@ -93,6 +96,14 @@ public class Excursion implements Parcelable {
         this.teachers = teachers;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -106,5 +117,6 @@ public class Excursion implements Parcelable {
         parcel.writeString(hour);
         parcel.writeString(groups);
         parcel.writeString(teachers);
+        parcel.writeInt(id);
     }
 }

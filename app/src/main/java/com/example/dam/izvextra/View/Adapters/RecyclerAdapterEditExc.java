@@ -3,6 +3,7 @@ package com.example.dam.izvextra.View.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
     private ArrayList<Teacher> tchs;
     private Context context;
     private FragmentActivity fragmentActivity;
+    private Bundle bundle;
 
     public RecyclerAdapterEditExc(ArrayList<Excursion> datos) {
         this.datos = datos;
@@ -39,10 +41,11 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
         this.context = context;
     }
 
-    public RecyclerAdapterEditExc(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity, ArrayList<Group> grps, ArrayList<Teacher> tchs) {
+    public RecyclerAdapterEditExc(ArrayList<Excursion> datos, Context context, FragmentActivity fragmentActivity, Bundle bundle, ArrayList<Group> grps, ArrayList<Teacher> tchs) {
         this.datos = datos;
         this.context = context;
         this.fragmentActivity = fragmentActivity;
+        this.bundle = bundle;
         this.grps = grps;
         this.tchs = tchs;
     }
@@ -109,12 +112,11 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
                     intent.putExtra("Groups", grps);
                     intent.putExtra("Teachers", tchs);
                     intent.putExtra("Accion", accion);
-                    context.startActivity(intent);
+                    fragmentActivity.startActivityForResult(intent, bundle.getInt("Edit"));
 
 
                 }
             });
-
 
 
         }
@@ -124,7 +126,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
         String result = "";
 
-        result = result + arrayTeachers.get(0).getNameTeacher();
+        result = result + arrayTeachers.get(0).getNombre();
 
         if (arrayTeachers.size() == 1) {
 
@@ -132,7 +134,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
             for (int i = 1; i < arrayTeachers.size(); i++) {
 
-                result = result + ", " + arrayTeachers.get(i).getNameTeacher() + " ";
+                result = result + ", " + arrayTeachers.get(i).getNombre() + " ";
 
             }
         }
@@ -144,7 +146,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
         String result = "";
 
-        result = result + arrayGroups.get(0).getNameGroup();
+        result = result + arrayGroups.get(0).getGrupo();
 
         if (arrayGroups.size() == 1) {
 
@@ -152,7 +154,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
             for (int i = 1; i < arrayGroups.size(); i++) {
 
-                result = result + ", " + arrayGroups.get(i).getNameGroup() + " ";
+                result = result + ", " + arrayGroups.get(i).getGrupo() + " ";
 
             }
         }

@@ -88,7 +88,6 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
             tvGroups = itemView.findViewById(R.id.tvGroups);
             tvTeachers = itemView.findViewById(R.id.tvTeachers);
             tvDate = itemView.findViewById(R.id.tvDate);
-            //tvHour = (TextView) itemView.findViewById(R.id.tvHour);
             cv1 = itemView.findViewById(R.id.cv1);
         }
 
@@ -110,46 +109,6 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
             });
 
         }
-    }
-
-    private String getStringTeachers(ArrayList<Teacher> arrayTeachers) {
-
-        String result = "";
-
-        result = result + arrayTeachers.get(0).getNameTeacher();
-
-        if (arrayTeachers.size() == 1) {
-
-        } else {
-
-            for (int i = 1; i < arrayTeachers.size(); i++) {
-
-                result = result + ", " + arrayTeachers.get(i).getNameTeacher() + " ";
-
-            }
-        }
-
-        return result;
-    }
-
-    private String getStringGroups(ArrayList<Group> arrayGroups) {
-
-        String result = "";
-
-        result = result + arrayGroups.get(0).getNameGroup();
-
-        if (arrayGroups.size() == 1) {
-
-        } else {
-
-            for (int i = 1; i < arrayGroups.size(); i++) {
-
-                result = result + ", " + arrayGroups.get(i).getNameGroup() + " ";
-
-            }
-        }
-
-        return result;
     }
 
 }

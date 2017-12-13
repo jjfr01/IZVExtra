@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -38,6 +39,7 @@ public class EditActivity extends AppCompatActivity {
     private TextInputEditText tietPlace;
     private EditText etDescription;
     private ImageView imgDate, imgHour;
+    private Button btnSave;
     private TextView tvDate, tvHour;
     private Toolbar toolbarEdit;
     private ArrayList<Group> grps = new ArrayList<>();
@@ -65,6 +67,7 @@ public class EditActivity extends AppCompatActivity {
         imgHour = findViewById(R.id.imgHour);
         tvDate = findViewById(R.id.tvDate);
         tvHour = findViewById(R.id.tvHour);
+        btnSave = findViewById(R.id.btnSave);
 
         imgDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +83,17 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveExc();
+            }
+        });
+
+        accion = getIntent().getIntExtra("Accion", 0);
+        grps = getIntent().getParcelableArrayListExtra("Groups");
+        tchs = getIntent().getParcelableArrayListExtra("Teachers");
+
     }
 
     @Override
@@ -89,7 +103,11 @@ public class EditActivity extends AppCompatActivity {
 
         init();
 
-        loadData();
+        if (accion == 1) {
+
+            loadData();
+
+        }
 
         genereCBTeachers();
 
@@ -125,10 +143,7 @@ public class EditActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        grps = getIntent().getParcelableArrayListExtra("Groups");
-        tchs = getIntent().getParcelableArrayListExtra("Teachers");
         exc = getIntent().getParcelableExtra("Excursion");
-        accion = getIntent().getIntExtra("Accion", 0);
 
         tietPlace.setText(exc.getPlace());
         etDescription.setText(exc.getDescription());
@@ -144,7 +159,7 @@ public class EditActivity extends AppCompatActivity {
             for (int i = 0; i < tchs.size(); i++) {
 
                 CheckBox cb = new CheckBox(getApplicationContext());
-                cb.setText(tchs.get(i).getNameTeacher());
+                cb.setText(tchs.get(i).getNombre());
                 cb.setTextSize(16);
                 cb.setTextColor(this.getResources().getColor(R.color.colorBlack));
                 if (checkTeacher(cb.getText().toString())) {
@@ -163,7 +178,7 @@ public class EditActivity extends AppCompatActivity {
             for (int i = 0; i < tchs.size(); i++) {
 
                 CheckBox cb = new CheckBox(getApplicationContext());
-                cb.setText(tchs.get(i).getNameTeacher());
+                cb.setText(tchs.get(i).getNombre());
                 cb.setTextSize(16);
                 cb.setTextColor(this.getResources().getColor(R.color.colorBlack));
                 lleditTeacher.addView(cb);
@@ -182,7 +197,7 @@ public class EditActivity extends AppCompatActivity {
             for (int i = 0; i < grps.size(); i++) {
 
                 CheckBox cb = new CheckBox(getApplicationContext());
-                cb.setText(grps.get(i).getNameGroup());
+                cb.setText(grps.get(i).getGrupo());
                 cb.setTextSize(16);
                 cb.setTextColor(this.getResources().getColor(R.color.colorBlack));
                 if (checkGroup(cb.getText().toString())) {
@@ -202,7 +217,7 @@ public class EditActivity extends AppCompatActivity {
             for (int i = 0; i < grps.size(); i++) {
 
                 CheckBox cb = new CheckBox(getApplicationContext());
-                cb.setText(grps.get(i).getNameGroup());
+                cb.setText(grps.get(i).getGrupo());
                 cb.setTextSize(16);
                 cb.setTextColor(this.getResources().getColor(R.color.colorBlack));
                 lleditGroup.addView(cb);
@@ -361,6 +376,50 @@ public class EditActivity extends AppCompatActivity {
         }
 
         return hour + ":" + minute;
+    }
+
+    private String getCheckBoxString(ArrayList<CheckBox> array) {
+
+        String result = "";
+
+        for (int i = 0; i < array.size(); i++) {
+
+            if(array.get(i).isChecked() && result.equals("")){
+
+                result += array.get(i).getText().toString();
+
+            } else if(array.get(i).isChecked()){
+
+                result += ", " + array.get(i).getText().toString();
+
+            }
+
+        }
+
+        return result;
+    }
+
+    private void saveExc() {
+
+        if (accion == 1) {
+
+            //Control de errores
+
+            //PUT
+
+            finish();
+
+        } else {
+
+            //Control de errores
+
+            //POST
+
+            finish();
+
+        }
+
+
     }
 
 }

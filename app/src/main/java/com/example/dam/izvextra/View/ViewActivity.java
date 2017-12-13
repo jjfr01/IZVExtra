@@ -1,7 +1,9 @@
 package com.example.dam.izvextra.View;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
@@ -14,6 +16,8 @@ import java.util.Arrays;
 
 public class ViewActivity extends AppCompatActivity {
 
+    private Toolbar toolbarV;
+
     private TextView tvPlace, tvDescripcion, tvGroup, tvTeacher, tvDate, tvHour;
     private Excursion exc;
 
@@ -25,6 +29,12 @@ public class ViewActivity extends AppCompatActivity {
         tvTeacher = findViewById(R.id.tvVTeacher);
         tvDate = findViewById(R.id.tvVDate);
         tvHour = findViewById(R.id.tvVHour);
+
+        toolbarV = findViewById(R.id.toolbarV);
+
+        setSupportActionBar(toolbarV);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
     }
 

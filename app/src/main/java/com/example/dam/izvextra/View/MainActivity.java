@@ -1,17 +1,16 @@
 package com.example.dam.izvextra.View;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,11 +20,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
+import com.example.dam.izvextra.Presenter.Contract;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Fragments.AdminFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
@@ -33,15 +32,12 @@ import com.example.dam.izvextra.View.Fragments.MainFragment;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private ActionBar actionbar;
     private DrawerLayout drawerlayout;
     private NavigationView navigationView;
     private ArrayList<Excursion> excs = new ArrayList<>();
@@ -52,17 +48,21 @@ public class MainActivity extends AppCompatActivity {
     private String filterDate = "";
     private int fragmentSelected = 0;
 
+    private Contract contract = new Contract();
+
+    private final int REQUEST_EDIT = 1;
+    private final int REQUEST_NEW = 2;
+
     private void init() {
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigationview);
         drawerlayout = findViewById(R.id.drawerlayout);
-
 
         navigationView.setItemIconTintList(null);//Esto nos permite que los iconos del menu del navigation drawer tengan su propio color
 
         setSupportActionBar(toolbar);
-        actionbar = getSupportActionBar();
+        ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeAsUpIndicator(R.drawable.ic_burguer);//Cargamos el icono burger para el Navigation Drawer
         actionbar.setDisplayHomeAsUpEnabled(true);
 
@@ -79,23 +79,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            excs = getArray();
-
-            genereGroups();
-
-            genereTeachers();
-
-            defaultFragment();
+            startApp();
 
         } else {
 
             //No recreamos el Activity -- Solución que le doy para evitar que se recree al girar el dispositivo
             excs = savedInstanceState.getParcelableArrayList("Array");
+            grps = savedInstanceState.getParcelableArrayList("Groups");
+            tchs = savedInstanceState.getParcelableArrayList("Teachers");
             fragmentSelected = savedInstanceState.getInt("FragmentSelected");
-
-            genereGroups();
-
-            genereTeachers();
 
         }
 
@@ -106,33 +98,9 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putParcelableArrayList("Array", excs);
+        outState.putParcelableArrayList("Groups", grps);
+        outState.putParcelableArrayList("Teachers", tchs);
         outState.putInt("FragmentSelected", fragmentSelected);
-
-    }
-
-    public void changeFragment(Fragment fragment) {
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragMain, fragment)
-                .commit();
-
-    }
-
-    private void defaultFragment() {
-
-        Fragment fragment = new MainFragment();
-        Bundle bundle = new Bundle();
-
-        bundle.putParcelableArrayList("Array", excs);
-        fragment.setArguments(bundle);
-
-        changeFragment(fragment);
-
-        MenuItem item = navigationView.getMenu().getItem(0);
-        item.setChecked(true);
-
-        fragmentSelected = 1;
 
     }
 
@@ -182,6 +150,55 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+
+            case REQUEST_NEW:
+
+                startApp();
+
+                break;
+
+            case REQUEST_EDIT:
+
+                startApp();
+
+                break;
+
+
+        }
+
+    }
+
+    public void changeFragment(Fragment fragment) {
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragMain, fragment)
+                .commit();
+
+    }
+
+    public void defaultFragment() {
+
+        Fragment fragment = new MainFragment();
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelableArrayList("Array", excs);
+        fragment.setArguments(bundle);
+
+        changeFragment(fragment);
+
+        MenuItem item = navigationView.getMenu().getItem(0);
+        item.setChecked(true);
+
+        fragmentSelected = 1;
+
+    }
+
     private void setSettingNavigationDrawer() {
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -212,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putParcelableArrayList("Array", excs);
                         bundle.putParcelableArrayList("Groups", grps);
                         bundle.putParcelableArrayList("Teachers", tchs);
+                        bundle.putInt("New", REQUEST_NEW);
+                        bundle.putInt("Edit", REQUEST_EDIT);
                         fragment.setArguments(bundle);
                         FragmentTransaction = true;
                         fragmentSelected = 2;
@@ -296,17 +315,17 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Excursion> result = new ArrayList<>();
 
-        ArrayList<Excursion> aux = getArray();
+        ArrayList<Excursion> aux = excs;
 
         if (!filterGroup.equals("Seleccione Grupo") || !filterDate.equals("Seleccione Fecha")) {
 
             if (filterGroup.equals("Cualquiera") && filterDate.equals("Cualquiera")) {
-                //No tocamos el Array
-                result = getArray();
+
+                result = aux;
 
             } else if ((filterGroup.equals("Cualquiera") || filterGroup.equals("Seleccione Grupo")) && (filterDate.equals("Cualquiera") || filterDate.equals("Seleccione Fecha"))) {
-                //No tocamos el Array
-                result = getArray();
+
+                result = aux;
 
             } else if ((!filterGroup.equals("Cualquiera") && !filterGroup.equals("Seleccione Grupo")) && (filterDate.equals("Cualquiera") || filterDate.equals("Seleccione Fecha"))) {
 
@@ -365,15 +384,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            excs = result;
-
             sendDataFragment(result);
 
         }
 
     }
 
-    private void sendDataFragment(ArrayList<Excursion> result) {
+    public void sendDataFragment(ArrayList<Excursion> result) {
 
         switch (fragmentSelected) {
 
@@ -402,39 +419,13 @@ public class MainActivity extends AppCompatActivity {
         spiGroup = ad.findViewById(R.id.spiGroup);
         spiDate = ad.findViewById(R.id.spiDate);
 
-        ArrayList<Group> grps = new ArrayList<>();
-
-        Group nuevo = new Group("2ºDAM", 1);
-
-        grps.add(nuevo);
-
-        nuevo = new Group("2ºDAW", 2);
-
-        grps.add(nuevo);
-
-        nuevo = new Group("1ºDAW", 3);
-
-        grps.add(nuevo);
-
-        nuevo = new Group("1ºDAM", 4);
-
-        grps.add(nuevo);
-
-        nuevo = new Group("1ºBachiller", 5);
-
-        grps.add(nuevo);
-
-        nuevo = new Group("2ºBachiller", 6);
-
-        grps.add(nuevo);
-
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, getStringArrayGroups(grps), android.R.layout.simple_spinner_item);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayGroups(grps));
         adapter.setDropDownViewResource(R.layout.spinner_item);
 
         spiGroup.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayDate(getArray()));
+        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_item, getStringArrayDate(excs));
         adapter.setDropDownViewResource(R.layout.spinner_item);
 
         spiDate.setAdapter(adapter);
@@ -446,8 +437,6 @@ public class MainActivity extends AppCompatActivity {
                 Object item = adapterView.getSelectedItem();
 
                 filterGroup = item.toString();
-
-                //Snackbar.make(view, filterGroup, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
             }
 
@@ -486,7 +475,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < arrayGroups.size(); i++) {
 
-            result.add(arrayGroups.get(i).getNameGroup());
+            result.add(arrayGroups.get(i).getGrupo());
 
         }
 
@@ -571,93 +560,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<Excursion> getArray() {//Esto es temporal
+    private void startApp() {
 
-        ArrayList<Excursion> excs = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-
-
-            Calendar calendar = Calendar.getInstance();
-            Date newDate = calendar.getTime();
-
-            Excursion exc = new Excursion("PruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPruebaPrueba", "Casa", getDateFormat(newDate), "11:15",  "1ºDAW", "Juanjo Fernandez, Pepe Pepazo");
-
-            excs.add(exc);
-
-        }
-
-
-        Group grp = new Group("2ºDAM", 1);
-        ArrayList<Group> grps = new ArrayList<>();
-        grps.add(grp);
-
-        Excursion exc = new Excursion("Prueba", "Casa", "01-09-2018", "14:45", "2ºDAM, 1ºDAM", "Juanjo Fernandez, Pepe Pepazo");
-
-        excs.add(exc);
-
-        exc = new Excursion("Prueba", "Casa", "15-12-2017", "14:45",  "2ºDAM, 1ºDAM", "Juanjo Fernandez, Pepe Pepazo");
-
-        excs.add(exc);
-
-        exc = new Excursion("Prueba", "Casa", "15-12-2017", "14:45", "2ºDAM, 1ºDAM", "Juanjo Fernandez, Pepe Pepazo");
-
-        excs.add(exc);
-
-        return excs;
-    }
-
-    private void genereGroups() {
-
-
-        Group nuevo = new Group("2ºDAM", 1);
-        grps.add(nuevo);
-
-        nuevo = new Group("2ºDAW", 2);
-        grps.add(nuevo);
-
-        nuevo = new Group("1ºDAM", 3);
-        grps.add(nuevo);
-
-        nuevo = new Group("1ºDAW", 4);
-        grps.add(nuevo);
+        contract.getArrays(this);
 
     }
 
-    private void genereTeachers() {
+    public void setArrayExc(ArrayList<Excursion> array){
 
-        Teacher tch = new Teacher("Juanjo Fernandez", 1);
-        tchs.add(tch);
-        tch = new Teacher("Pepe Pepazo", 2);
-        tchs.add(tch);
-        tch = new Teacher("Antonia Lozano", 3);
-        tchs.add(tch);
+        excs = array;
 
     }
 
-    /*
-            //View -- Aqui
-            Presenter ps = new Presenter();
+    public void setArrayGroups(ArrayList<Group> array){
 
-            ps.getArrayExcursions();
+        grps = array;
 
-            //Presenter
-            public ArrayList<Excursion> getArrayExcursions(){
+    }
 
-                Model md = new Model();
+    public void setArrayTeachers(ArrayList<Teacher> array){
 
-                return md.getArrayFromJson();
-            }
+        tchs = array;
 
-            //Model
-           public ArrayList<Excursion> getArrayFromJson(){
-
-                //Conectar con el json
-                //Parsear el jsonarray a un arrayList<Excursion>
-                //cuando lo tengamos lo devolvemos
-
-                return array;
-
-           }*/
+    }
 
 }
