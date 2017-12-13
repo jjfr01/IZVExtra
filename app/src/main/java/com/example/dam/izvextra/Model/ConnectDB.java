@@ -63,6 +63,7 @@ public class ConnectDB {
 
                 ((MainActivity) context).setArrayExc(excs);
 
+                ((MainActivity) context).defaultFragment();
 
                     getGroupJson(context);
 
@@ -143,8 +144,6 @@ public class ConnectDB {
                 tchs = jsonArraytoArrayListTch(jsonarray);
 
                 ((MainActivity) context).setArrayTeachers(tchs);
-
-                ((MainActivity) context).defaultFragment();
 
             }
         };

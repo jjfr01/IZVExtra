@@ -4,9 +4,6 @@ package com.example.dam.izvextra.Model.Pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Excursion implements Parcelable {
 
 

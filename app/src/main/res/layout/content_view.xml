@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_view"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:showIn="@layout/activity_view">
+
 
     <TextView
         android:id="@+id/tvVPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Prueba"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/titleVDescription"
@@ -66,6 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:text="@={exc.groups}"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/titleTeacher"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:text="@={exc.teachers}"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/titleVDate"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:text="@={exc.date}"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/titleVHour"
         app:layout_constraintEnd_toEndOf="parent"
@@ -147,6 +150,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:text="@={exc.hour}"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

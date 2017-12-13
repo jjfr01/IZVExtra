@@ -1,14 +1,12 @@
 package com.example.dam.izvextra.View;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
-import com.example.dam.izvextra.Model.Pojo.Group;
-import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.R;
 
 import java.util.ArrayList;
