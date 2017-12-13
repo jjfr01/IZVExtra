@@ -96,7 +96,6 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
             tvGroups.setText("Grupos: " + s.getGroups());
             tvTeachers.setText("Profesores: " + s.getTeachers());
             tvDate.setText(s.getDate());
-            //tvHour.setText(s.getHour());
 
             cv1.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
@@ -27,6 +28,7 @@ import com.example.dam.izvextra.Model.Pojo.Teacher;
 import com.example.dam.izvextra.Presenter.Contract;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Fragments.AdminFragment;
+import com.example.dam.izvextra.View.Fragments.GroupFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
 
 import java.text.SimpleDateFormat;
@@ -126,7 +128,19 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_filter:
 
-                launchDialogFilter();
+                if(fragmentSelected==1){
+
+                    launchDialogFilter();
+
+                } else if(fragmentSelected==2){
+
+                    launchDialogFilter();
+
+                } else {
+
+                    Toast.makeText(this, "No se puede usar el filtro aquí", Toast.LENGTH_SHORT).show();
+
+                }
 
                 break;
 
@@ -238,8 +252,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.menu_group:
-                        //fragment = new MainFragment();
-                        //FragmentTransaction = true;
+                        fragment = new GroupFragment();
+                        bundle = new Bundle();
+                        bundle.putParcelableArrayList("Groups", grps);
+                        fragment.setArguments(bundle);
+                        FragmentTransaction = true;
+                        fragmentSelected = 3;
                         break;
 
                     case R.id.menu_teacher:
