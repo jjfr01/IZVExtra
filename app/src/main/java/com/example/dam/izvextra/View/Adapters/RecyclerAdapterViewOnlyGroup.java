@@ -41,9 +41,9 @@ public class RecyclerAdapterViewOnlyGroup extends RecyclerView.Adapter<RecyclerA
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_group, parent, false);
 
-        GroupViewHolder evh = new GroupViewHolder(itemView);
+        GroupViewHolder gvh = new GroupViewHolder(itemView);
 
-        return evh;
+        return gvh;
     }
 
     @Override

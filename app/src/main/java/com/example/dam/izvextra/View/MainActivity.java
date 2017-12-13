@@ -30,6 +30,7 @@ import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.Fragments.AdminFragment;
 import com.example.dam.izvextra.View.Fragments.GroupFragment;
 import com.example.dam.izvextra.View.Fragments.MainFragment;
+import com.example.dam.izvextra.View.Fragments.TeacherFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -261,8 +262,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.menu_teacher:
-                        //fragment = new MainFragment();
-                        //FragmentTransaction = true;
+                        fragment = new TeacherFragment();
+                        bundle = new Bundle();
+                        bundle.putParcelableArrayList("Teachers", tchs);
+                        fragment.setArguments(bundle);
+                        FragmentTransaction = true;
+                        fragmentSelected = 4;
                         break;
 
                     case R.id.menu_setting:
