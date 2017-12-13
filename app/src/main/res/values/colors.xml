@@ -4,5 +4,12 @@
     <color name="colorPrimaryDark">#2076B7</color>
     <color name="colorPrimaryLight">#3AAEE6</color>
     <color name="colorAccent">#536DFE</color>
+
     <color name="colorWhite">#FFF</color>
+
+    <color name="colorBlack">#212121</color>
+    
+    <color name="colorTransparent">#00FFFFFF</color>
+
+    <color name="errorText">#FFFF0000</color>
 </resources>

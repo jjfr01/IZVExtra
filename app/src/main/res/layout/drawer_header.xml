@@ -4,12 +4,14 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/imgheadermenu"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/splash" />
 
     <TextView
+        android:id="@+id/tvheadermenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"

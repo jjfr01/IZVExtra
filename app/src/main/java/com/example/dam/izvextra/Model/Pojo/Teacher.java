@@ -6,21 +6,19 @@ import android.os.Parcelable;
 
 public class Teacher implements Parcelable {
 
-    private String nameTeacher, lastName;
-    private int idTeacher;
+    private String nombre;
+    private int id;
 
     public Teacher() {}
 
-    public Teacher(String nameTeacher, String lastName, int idTeacher) {
-        this.nameTeacher = nameTeacher;
-        this.lastName = lastName;
-        this.idTeacher = idTeacher;
+    public Teacher(String nombre, int id) {
+        this.nombre = nombre;
+        this.id = id;
     }
 
     protected Teacher(Parcel in) {
-        nameTeacher = in.readString();
-        lastName = in.readString();
-        idTeacher = in.readInt();
+        nombre = in.readString();
+        id = in.readInt();
     }
 
     public static final Creator<Teacher> CREATOR = new Creator<Teacher>() {
@@ -35,28 +33,20 @@ public class Teacher implements Parcelable {
         }
     };
 
-    public String getNameTeacher() {
-        return nameTeacher;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNameTeacher(String nameTeacher) {
-        this.nameTeacher = nameTeacher;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getLastName() {
-        return lastName;
+    public int getId() {
+        return id;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getIdTeacher() {
-        return idTeacher;
-    }
-
-    public void setIdTeacher(int idTeacher) {
-        this.idTeacher = idTeacher;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -66,8 +56,7 @@ public class Teacher implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(nameTeacher);
-        parcel.writeString(lastName);
-        parcel.writeInt(idTeacher);
+        parcel.writeString(nombre);
+        parcel.writeInt(id);
     }
 }

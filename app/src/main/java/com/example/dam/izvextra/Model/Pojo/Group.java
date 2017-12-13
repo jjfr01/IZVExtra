@@ -6,19 +6,19 @@ import android.os.Parcelable;
 
 public class Group implements Parcelable {
 
-    private String nameGroup;
-    private int idGroup;
+    private String grupo;
+    private int id;
 
     public Group() {}
 
-    public Group(String nameGroup, int idGroup) {
-        this.nameGroup = nameGroup;
-        this.idGroup = idGroup;
+    public Group(String grupo, int id) {
+        this.grupo = grupo;
+        this.id = id;
     }
 
     protected Group(Parcel in) {
-        nameGroup = in.readString();
-        idGroup = in.readInt();
+        grupo = in.readString();
+        id = in.readInt();
     }
 
     public static final Creator<Group> CREATOR = new Creator<Group>() {
@@ -33,20 +33,20 @@ public class Group implements Parcelable {
         }
     };
 
-    public String getNameGroup() {
-        return nameGroup;
+    public String getGrupo() {
+        return grupo;
     }
 
-    public void setNameGroup(String nameGroup) {
-        this.nameGroup = nameGroup;
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
     }
 
-    public int getIdGroup() {
-        return idGroup;
+    public int getId() {
+        return id;
     }
 
-    public void setIdGroup(int idGroup) {
-        this.idGroup = idGroup;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Group implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(nameGroup);
-        parcel.writeInt(idGroup);
+        parcel.writeString(grupo);
+        parcel.writeInt(id);
     }
 }
