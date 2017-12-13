@@ -10,4 +10,6 @@
     <color name="colorBlack">#212121</color>
     
     <color name="colorTransparent">#00FFFFFF</color>
+
+    <color name="errorText">#FFFF0000</color>
 </resources>

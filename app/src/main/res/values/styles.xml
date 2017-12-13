@@ -10,6 +10,8 @@
         <item name="android:dropDownListViewStyle">@style/App.Style.Spinner</item>
 
         <item name="android:homeAsUpIndicator">@drawable/ic_white_back_up</item>
+
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
     <style name="App.Style.Spinner" parent="Base.Widget.AppCompat.ListView.DropDown">
@@ -27,6 +29,18 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Counter" parent="TextAppearance.Design.Counter">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Hint" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="OverFlowCounter" parent="TextAppearance.Design.Counter.Overflow">
+        <item name="android:textColor">@color/errorText</item>
     </style>
 
 </resources>

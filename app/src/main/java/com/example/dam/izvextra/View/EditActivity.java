@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
+import com.example.dam.izvextra.Presenter.Contract;
 import com.example.dam.izvextra.R;
 
 import java.util.ArrayList;
@@ -34,14 +36,12 @@ import java.util.Date;
 
 public class EditActivity extends AppCompatActivity {
 
+    private TextInputLayout til;
     private LinearLayout lleditTeacher;
     private LinearLayout lleditGroup;
     private TextInputEditText tietPlace;
     private EditText etDescription;
-    private ImageView imgDate, imgHour;
-    private Button btnSave;
     private TextView tvDate, tvHour;
-    private Toolbar toolbarEdit;
     private ArrayList<Group> grps = new ArrayList<>();
     private ArrayList<Teacher> tchs = new ArrayList<>();
     private ArrayList<CheckBox> cbG = new ArrayList<>();
@@ -50,24 +50,26 @@ public class EditActivity extends AppCompatActivity {
 
     private int accion = 0;
 
+    private Contract contract = new Contract();
 
     private void init() {
 
-        toolbarEdit = findViewById(R.id.toolbarEdit);
+        Toolbar toolbarEdit = findViewById(R.id.toolbarEdit);
 
         setSupportActionBar(toolbarEdit);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        til = findViewById(R.id.til);
         lleditTeacher = findViewById(R.id.lleditTeacher);
         lleditGroup = findViewById(R.id.lleditGroup);
         etDescription = findViewById(R.id.etDescription);
         tietPlace = findViewById(R.id.tietPlace);
-        imgDate = findViewById(R.id.imgDate);
-        imgHour = findViewById(R.id.imgHour);
+        ImageView imgDate = findViewById(R.id.imgDate);
+        ImageView imgHour = findViewById(R.id.imgHour);
         tvDate = findViewById(R.id.tvDate);
         tvHour = findViewById(R.id.tvHour);
-        btnSave = findViewById(R.id.btnSave);
+        Button btnSave = findViewById(R.id.btnSave);
 
         imgDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,9 +307,17 @@ public class EditActivity extends AppCompatActivity {
     }
 
     private String getDateFromDatePicker(DatePicker datePicker) {
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth() + 1;
-        int year = datePicker.getYear();
+        String day = String.valueOf(datePicker.getDayOfMonth());
+        String month = String.valueOf(datePicker.getMonth() + 1);
+        String year = String.valueOf(datePicker.getYear());
+
+        if (day.length() == 1) {
+            day = "0" + day;
+        }
+
+        if (month.length() == 1) {
+            month = "0" + month;
+        }
 
 
         return day + "-" + month + "-" + year;
@@ -384,11 +394,11 @@ public class EditActivity extends AppCompatActivity {
 
         for (int i = 0; i < array.size(); i++) {
 
-            if(array.get(i).isChecked() && result.equals("")){
+            if (array.get(i).isChecked() && result.equals("")) {
 
                 result += array.get(i).getText().toString();
 
-            } else if(array.get(i).isChecked()){
+            } else if (array.get(i).isChecked()) {
 
                 result += ", " + array.get(i).getText().toString();
 
@@ -401,21 +411,71 @@ public class EditActivity extends AppCompatActivity {
 
     private void saveExc() {
 
+        String place, description, groups, teachers, date, hour;
+
+        boolean control = true;
+
+        place = tietPlace.getText().toString();
+        description = etDescription.getText().toString();
+        groups = getCheckBoxString(cbG);
+        teachers = getCheckBoxString(cbT);
+        date = tvDate.getText().toString();
+        hour = tvHour.getText().toString();
+
+
+        //Control de errores
+        if (place.equals("") || place.length() > 12) {
+
+            til.setError("Error");
+            Toast.makeText(this, "Lugar debe estar relleno y ser menor de 12 caracteres", Toast.LENGTH_LONG).show();
+            control = false;
+
+        }
+
+        if (description.equals("")) {
+
+            Toast.makeText(this, "Descripcion debe estar relleno", Toast.LENGTH_LONG).show();
+            control = false;
+
+        }
+
+        if (groups.equals("")) {
+
+            Toast.makeText(this, "Debe haber al menos 1 Grupo", Toast.LENGTH_LONG).show();
+            control = false;
+
+        }
+
+        if (teachers.equals("")) {
+
+            Toast.makeText(this, "Debe haber al menos 1 Profesor", Toast.LENGTH_LONG).show();
+            control = false;
+
+        }
+
+        //PUT
         if (accion == 1) {
 
-            //Control de errores
+            if (control) {
 
-            //PUT
+                int id = exc.getId();
 
-            finish();
+                exc = new Excursion(description, place, date, hour, groups, teachers, id);
 
+                contract.putExc(this, exc, id);
+
+            }
+        //POST
         } else {
 
-            //Control de errores
 
-            //POST
+            if (control) {
 
-            finish();
+                exc = new Excursion(description, place, date, hour, groups, teachers, 0);
+
+                contract.postExc(this, exc);
+
+            }
 
         }
 

@@ -16,8 +16,6 @@ import java.util.Arrays;
 
 public class ViewActivity extends AppCompatActivity {
 
-    private Toolbar toolbarV;
-
     private TextView tvPlace, tvDescripcion, tvGroup, tvTeacher, tvDate, tvHour;
     private Excursion exc;
 
@@ -30,7 +28,7 @@ public class ViewActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.tvVDate);
         tvHour = findViewById(R.id.tvVHour);
 
-        toolbarV = findViewById(R.id.toolbarV);
+        Toolbar toolbarV = findViewById(R.id.toolbarV);
 
         setSupportActionBar(toolbarV);
         ActionBar ab = getSupportActionBar();

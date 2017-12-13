@@ -1,27 +1,28 @@
 package com.example.dam.izvextra.View.Adapters;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
+import com.example.dam.izvextra.Presenter.Contract;
 import com.example.dam.izvextra.R;
 import com.example.dam.izvextra.View.EditActivity;
+import com.example.dam.izvextra.View.MainActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapterEditExc.ExcursionViewHolder> {
 
@@ -31,6 +32,8 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
     private Context context;
     private FragmentActivity fragmentActivity;
     private Bundle bundle;
+
+    private Contract contract = new Contract();
 
     public RecyclerAdapterEditExc(ArrayList<Excursion> datos) {
         this.datos = datos;
@@ -66,7 +69,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
 
         Excursion exc = datos.get(position);
 
-        holder.bindExcursion(exc);
+        holder.bindExcursion(exc, position);
 
     }
 
@@ -84,7 +87,7 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
     public class ExcursionViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvPlace, tvGroups, tvTeachers, tvDate;
-        private ImageView ibtnEdit;
+        private ImageView ibtnEdit, ibtnDel;
 
         public ExcursionViewHolder(View itemView) {
             super(itemView);
@@ -93,9 +96,10 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
             tvTeachers = itemView.findViewById(R.id.tvTeachers);
             tvDate = itemView.findViewById(R.id.tvDate);
             ibtnEdit = itemView.findViewById(R.id.ibtnEdit);
+            ibtnDel = itemView.findViewById(R.id.ibtnDel);
         }
 
-        public void bindExcursion(final Excursion s) {
+        public void bindExcursion(final Excursion s, final int position) {
             tvPlace.setText(s.getPlace());
             tvGroups.setText("Grupos: " + s.getGroups());
             tvTeachers.setText("Profesores: " + s.getTeachers());
@@ -114,6 +118,15 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
                     intent.putExtra("Accion", accion);
                     fragmentActivity.startActivityForResult(intent, bundle.getInt("Edit"));
 
+
+                }
+            });
+
+            ibtnDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    deleteExc(position, s);
 
                 }
             });
@@ -160,6 +173,47 @@ public class RecyclerAdapterEditExc extends RecyclerView.Adapter<RecyclerAdapter
         }
 
         return result;
+    }
+
+    public void deleteExc(final int position, final Excursion exc) {
+
+        Button btnAceptar1, btnCancelar1;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        LayoutInflater li = LayoutInflater.from(context);
+        final AlertDialog ad;
+
+        alert.setView(li.inflate((R.layout.delete_window), null));
+
+        alert.setTitle("ELIMINAR");
+
+        ad = alert.create();
+        ad.show();
+
+        btnAceptar1 = ad.findViewById(R.id.btnAceptar1);
+        btnCancelar1 = ad.findViewById(R.id.btnCancelar1);
+
+        btnAceptar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                updateArray(((MainActivity)fragmentActivity).deleteExc(exc.getId()));
+
+                contract.deleteExc(context, exc.getId());
+
+                notifyDataSetChanged();//Recargar Recycler
+
+                ad.cancel();
+            }
+        });
+
+        btnCancelar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.cancel();
+            }
+        });
+
     }
 
 }

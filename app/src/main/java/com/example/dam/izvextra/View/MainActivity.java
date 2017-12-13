@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
+        switch (requestCode) {
 
             case REQUEST_NEW:
 
@@ -528,16 +528,6 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    private String getDateFormat(Date date) {
-
-        String result = "";
-
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        result = format.format(date);
-
-        return result;
-    }
-
     private void orderArrayDate(ArrayList<String> result) {
 
         Collections.sort(result, new Comparator<String>() {
@@ -560,25 +550,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public ArrayList<Excursion> deleteExc(int id) {
+
+        for (int i = 0; i < excs.size(); i++) {
+
+            if (excs.get(i).getId() == id) {
+
+                excs.remove(i);
+                break;
+
+            }
+
+        }
+
+
+        return excs;
+    }
+
     private void startApp() {
 
         contract.getArrays(this);
 
     }
 
-    public void setArrayExc(ArrayList<Excursion> array){
+    public void setArrayExc(ArrayList<Excursion> array) {
 
         excs = array;
 
     }
 
-    public void setArrayGroups(ArrayList<Group> array){
+    public void setArrayGroups(ArrayList<Group> array) {
 
         grps = array;
 
     }
 
-    public void setArrayTeachers(ArrayList<Teacher> array){
+    public void setArrayTeachers(ArrayList<Teacher> array) {
 
         tchs = array;
 

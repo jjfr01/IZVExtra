@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import com.example.dam.izvextra.Model.Pojo.Excursion;
 import com.example.dam.izvextra.Model.Pojo.Group;
 import com.example.dam.izvextra.Model.Pojo.Teacher;
+import com.example.dam.izvextra.View.EditActivity;
 import com.example.dam.izvextra.View.MainActivity;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +17,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -147,6 +150,70 @@ public class ConnectDB {
         };
 
         taskGet.execute();
+    }
+
+    public void postJson(final Context context, final Excursion exc) {
+
+        AsyncTask<Void, Void, Void> taskAddJson = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                postAndPutJsonToDBJson("http://json-franor21.c9users.io:8080/Excursiones", "POST", exc);
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                ((EditActivity)context).finish();
+
+            }
+        };
+
+        taskAddJson.execute();
+
+    }
+
+    public void putJson(final Context context, final Excursion exc, final int id) {
+
+        AsyncTask<Void, Void, Void> taskPut = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                postAndPutJsonToDBJson("http://json-franor21.c9users.io:8080/Excursiones/" + id, "PUT", exc);
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                ((EditActivity) context).finish();
+
+            }
+        };
+
+        taskPut.execute();
+
+    }
+
+    public void deleteJson(final Context context, final int id) {
+
+        AsyncTask<Void, Void, Void> taskDelete = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                deleteJsonFromDBJson("http://json-franor21.c9users.io:8080/Excursiones/" + id, "DELETE", context);
+
+                return null;
+            }
+        };
+
+        taskDelete.execute();
+
     }
 
     private String descargarDBJson(String link, String method) {
@@ -289,6 +356,72 @@ public class ConnectDB {
         }
 
         return array;
+    }
+
+    private void postAndPutJsonToDBJson(String link, String method, Excursion exc) {
+
+        Gson gson = new Gson();
+
+        String json = gson.toJson(exc);
+
+        try {
+
+            URL url = new URL(link);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod(method);
+
+            conn.setDoOutput(true);
+
+            conn.setRequestProperty("Content-type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            conn.connect();
+
+
+            OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");//Para mandar los datos, en este caso, para mandar el json
+            osw.write(json);
+            osw.flush();//Poner para que todos los datos se mandan
+            osw.close();
+
+            conn.getInputStream();//Sin esto, sabe Dios, no funciona
+
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+    private void deleteJsonFromDBJson(String link, String method, Context context) {
+
+        try {
+
+            URL url = new URL(link);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod(method);
+
+            conn.setDoOutput(true);
+
+            conn.setRequestProperty("Content-type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            conn.connect();
+
+            conn.getInputStream();//Sin esto, sabe Dios, no funciona
+
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+
+        }
+
     }
 
 }
