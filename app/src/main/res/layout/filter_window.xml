@@ -48,7 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="8dp"
-            android:text="Filtrar"
+            android:text="@string/filtrar"
             android:textColor="@color/colorPrimary" />
 
         <Button
@@ -60,7 +60,7 @@
             android:layout_margin="8dp"
             android:layout_toLeftOf="@+id/btnFilter"
             android:layout_toStartOf="@+id/btnFilter"
-            android:text="Cerrar"
+            android:text="@string/cerrar"
             android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 

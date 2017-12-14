@@ -273,11 +273,9 @@ public class MainActivity extends AppCompatActivity {
                         fragmentSelected = 4;
                         break;
 
-                    case R.id.menu_setting:
-
-                        break;
-
                     case R.id.menu_help:
+
+                        Toast.makeText(MainActivity.this, "Proximamente", Toast.LENGTH_SHORT).show();
 
                         break;
 

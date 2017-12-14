@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.example.dam.izvextra.Model.ConnectDB;
 import com.example.dam.izvextra.Model.Pojo.Excursion;
+import com.example.dam.izvextra.Model.PrintPDF;
 
 public class Contract {
 
@@ -39,6 +40,14 @@ public class Contract {
         ConnectDB connectDB = new ConnectDB();
 
         connectDB.deleteJson(context, id);
+
+    }
+
+    public void printPDF(Context context, Excursion exc){
+
+        PrintPDF printPDF = new PrintPDF();
+
+        printPDF.createPDFFile(context, exc);
 
     }
 

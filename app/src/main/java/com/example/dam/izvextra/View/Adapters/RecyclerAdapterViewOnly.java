@@ -104,6 +104,7 @@ public class RecyclerAdapterViewOnly extends RecyclerView.Adapter<RecyclerAdapte
                     Intent intent = new Intent(context, ViewActivity.class);
                     intent.putExtra("Excursion", s);
                     context.startActivity(intent);
+
                 }
             });
 

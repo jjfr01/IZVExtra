@@ -8,12 +8,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:textSize="17sp"
         android:textColor="@color/colorBlack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¿Seguro que deseas eliminar este elemento?" />
+        android:text="@string/pregunta" />
 
 
     <RelativeLayout
@@ -29,7 +29,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Aceptar"
+            android:text="@string/aceptar"
             android:textColor="@color/colorPrimary" />
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_alignBottom="@+id/btnAceptar1"
             android:layout_toLeftOf="@+id/btnAceptar1"
             android:layout_toStartOf="@+id/btnAceptar1"
-            android:text="Cancelar"
+            android:text="@string/cancelar"
             android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 

@@ -314,7 +314,7 @@ public class EditActivity extends AppCompatActivity {
         }
 
 
-        return day + "-" + month + "-" + year;
+        return year + "-" + month + "-" + day;
     }
 
     private void launchDialogHour() {
