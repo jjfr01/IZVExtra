@@ -1,11 +1,8 @@
 package com.example.dam.izvextra.View;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
@@ -31,16 +28,14 @@ import com.example.dam.izvextra.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 
 public class EditActivity extends AppCompatActivity {
 
-    private TextInputLayout til;
+    private TextInputLayout tilPlace, tilDescription;
     private LinearLayout lleditTeacher;
     private LinearLayout lleditGroup;
     private TextInputEditText tietPlace;
-    private EditText etDescription;
+    private EditText tietDescription;
     private TextView tvDate, tvHour;
     private ArrayList<Group> grps = new ArrayList<>();
     private ArrayList<Teacher> tchs = new ArrayList<>();
@@ -60,10 +55,11 @@ public class EditActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        til = findViewById(R.id.til);
+        tilPlace = findViewById(R.id.tilPlace);
+        tilDescription = findViewById(R.id.tilDescription);
         lleditTeacher = findViewById(R.id.lleditTeacher);
         lleditGroup = findViewById(R.id.lleditGroup);
-        etDescription = findViewById(R.id.etDescription);
+        tietDescription = findViewById(R.id.tietDescription);
         tietPlace = findViewById(R.id.tietPlace);
         ImageView imgDate = findViewById(R.id.imgDate);
         ImageView imgHour = findViewById(R.id.imgHour);
@@ -142,7 +138,7 @@ public class EditActivity extends AppCompatActivity {
         exc = getIntent().getParcelableExtra("Excursion");
 
         tietPlace.setText(exc.getPlace());
-        etDescription.setText(exc.getDescription());
+        tietDescription.setText(exc.getDescription());
         tvDate.setText(exc.getDate());
         tvHour.setText(exc.getHour());
 
@@ -410,7 +406,7 @@ public class EditActivity extends AppCompatActivity {
         boolean control = true;
 
         place = tietPlace.getText().toString();
-        description = etDescription.getText().toString();
+        description = tietDescription.getText().toString();
         groups = getCheckBoxString(cbG);
         teachers = getCheckBoxString(cbT);
         date = tvDate.getText().toString();
@@ -421,14 +417,15 @@ public class EditActivity extends AppCompatActivity {
         if (place.equals("") || place.length() > 10) {
 
 
-            til.setError("Error");
+            tilPlace.setError("Error");
             Toast.makeText(this, "Lugar debe estar relleno y ser menor de 12 caracteres", Toast.LENGTH_LONG).show();
             control = false;
 
         }
 
-        if (description.equals("")) {
+        if (description.equals("") || description.length() > 400) {
 
+            tilDescription.setError("Error");
             Toast.makeText(this, "Descripcion debe estar relleno", Toast.LENGTH_LONG).show();
             control = false;
 
@@ -460,7 +457,7 @@ public class EditActivity extends AppCompatActivity {
                 contract.putExc(this, exc, id);
 
             }
-        //POST
+            //POST
         } else {
 
 

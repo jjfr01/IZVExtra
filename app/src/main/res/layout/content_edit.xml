@@ -8,48 +8,51 @@
 
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/til"
+        android:id="@+id/tilPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
         app:counterOverflowTextAppearance="@style/OverFlowCounter"
         app:counterTextAppearance="@style/Counter"
         app:hintTextAppearance="@style/Hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:counterEnabled="true"
-        app:counterMaxLength="10">
+        app:layout_constraintVertical_bias="0.0">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/tietPlace"
             android:layout_width="match_parent"
-            android:inputType="textCapSentences"
             android:layout_height="wrap_content"
-            android:hint="@string/lugar" />
+            android:hint="@string/lugar"
+            android:inputType="textCapSentences" />
+
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/titleDescription"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/descripcion"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        app:counterEnabled="true"
+        app:counterMaxLength="400"
+        app:counterOverflowTextAppearance="@style/OverFlowCounter"
+        app:counterTextAppearance="@style/Counter"
+        app:hintTextAppearance="@style/Hint"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til" />
+        app:layout_constraintTop_toBottomOf="@id/tilPlace">
 
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:ems="10"
-        android:inputType="textMultiLine|textCapSentences"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleDescription" />
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tietDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/descripcion"
+            android:inputType="textMultiLine|textCapSentences" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/titlecbTeacher"
@@ -60,14 +63,13 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDescription" />
+        app:layout_constraintTop_toBottomOf="@id/tilDescription" />
 
     <LinearLayout
         android:id="@+id/lleditTeacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_margin="12dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titlecbTeacher"
@@ -90,11 +92,9 @@
         android:id="@+id/lleditGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_margin="12dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlecbGroup">
 
@@ -109,7 +109,7 @@
         app:layout_constraintEnd_toStartOf="@id/imgHour"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lleditGroup"/>
+        app:layout_constraintTop_toBottomOf="@id/lleditGroup" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -118,7 +118,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/_12_12_2017"
         app:layout_constraintStart_toStartOf="@id/imgDate"
-        app:layout_constraintTop_toBottomOf="@id/imgDate"/>
+        app:layout_constraintTop_toBottomOf="@id/imgDate" />
 
     <ImageView
         android:id="@+id/imgHour"
@@ -134,20 +134,20 @@
         android:id="@+id/tvHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_18_47"
         android:layout_margin="8dp"
+        android:text="@string/_18_47"
         app:layout_constraintStart_toStartOf="@id/imgHour"
-        app:layout_constraintTop_toBottomOf="@id/imgHour"/>
+        app:layout_constraintTop_toBottomOf="@id/imgHour" />
 
     <Button
         android:id="@+id/btnSave"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/guardar"
         android:layout_marginTop="8dp"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/colorWhite"
         android:background="@color/colorPrimary"
+        android:text="@string/guardar"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

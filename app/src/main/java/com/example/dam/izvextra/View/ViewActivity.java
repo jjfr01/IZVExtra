@@ -44,7 +44,7 @@ public class ViewActivity extends AppCompatActivity {
         tvTeacher = findViewById(R.id.tvVTeacher);
         tvDate = findViewById(R.id.tvVDate);
         tvHour = findViewById(R.id.tvVHour);
-        fabPrint = (FloatingActionButton) findViewById(R.id.fabPrintV);
+        fabPrint = findViewById(R.id.fabPrintV);
 
         fabPrint.setOnClickListener(new View.OnClickListener() {
             @Override
