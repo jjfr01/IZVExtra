@@ -115,7 +115,7 @@ public class EditActivity extends AppCompatActivity {
 
         genereCBGroups();
 
-        if (isTablet(this)) {
+        if (MainActivity.isTablet(this)) {
 
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -135,12 +135,6 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    public static boolean isTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     private void loadData() {
@@ -320,7 +314,7 @@ public class EditActivity extends AppCompatActivity {
         }
 
 
-        return day + "-" + month + "-" + year;
+        return year + "-" + month + "-" + day;
     }
 
     private void launchDialogHour() {
@@ -424,7 +418,8 @@ public class EditActivity extends AppCompatActivity {
 
 
         //Control de errores
-        if (place.equals("") || place.length() > 12) {
+        if (place.equals("") || place.length() > 10) {
+
 
             til.setError("Error");
             Toast.makeText(this, "Lugar debe estar relleno y ser menor de 12 caracteres", Toast.LENGTH_LONG).show();

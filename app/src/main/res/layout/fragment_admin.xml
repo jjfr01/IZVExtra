@@ -31,7 +31,7 @@
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
             android:elevation="10dp"
-            android:text="Nueva Excursion"
+            android:text="@string/nueva_excursion"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline2"

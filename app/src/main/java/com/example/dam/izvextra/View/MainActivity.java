@@ -1,7 +1,10 @@
 package com.example.dam.izvextra.View;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String filterGroup = "";
     private String filterDate = "";
-    private int fragmentSelected = 0;
+    private int fragmentSelected = 1;
 
     private Contract contract = new Contract();
 
@@ -270,11 +273,9 @@ public class MainActivity extends AppCompatActivity {
                         fragmentSelected = 4;
                         break;
 
-                    case R.id.menu_setting:
-
-                        break;
-
                     case R.id.menu_help:
+
+                        Toast.makeText(MainActivity.this, "Proximamente", Toast.LENGTH_SHORT).show();
 
                         break;
 
@@ -588,6 +589,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         return excs;
+    }
+
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     private void startApp() {

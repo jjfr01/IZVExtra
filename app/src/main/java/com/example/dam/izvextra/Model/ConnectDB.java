@@ -63,6 +63,7 @@ public class ConnectDB {
 
                 ((MainActivity) context).setArrayExc(excs);
 
+                ((MainActivity) context).defaultFragment();
 
                     getGroupJson(context);
 
@@ -143,8 +144,6 @@ public class ConnectDB {
                 tchs = jsonArraytoArrayListTch(jsonarray);
 
                 ((MainActivity) context).setArrayTeachers(tchs);
-
-                ((MainActivity) context).defaultFragment();
 
             }
         };
@@ -279,28 +278,31 @@ public class ConnectDB {
 
         ArrayList<Excursion> array = new ArrayList<>();
 
-        for (int i = 0; i < jsonarray.length(); i++) {
+        if (jsonarray != null) {
 
-            try {
+            for (int i = 0; i < jsonarray.length(); i++) {
 
-                JSONObject newJsonobject = jsonarray.getJSONObject(i);
+                try {
 
-                Excursion newexc = new Excursion(newJsonobject.getString("description")
-                        , newJsonobject.getString("place")
-                        , newJsonobject.getString("date")
-                        , newJsonobject.getString("hour")
-                        , newJsonobject.getString("groups")
-                        , newJsonobject.getString("teachers")
-                        , Integer.parseInt(newJsonobject.getString("id")));
+                    JSONObject newJsonobject = jsonarray.getJSONObject(i);
 
-                array.add(newexc);
+                    Excursion newexc = new Excursion(newJsonobject.getString("description")
+                            , newJsonobject.getString("place")
+                            , newJsonobject.getString("date")
+                            , newJsonobject.getString("hour")
+                            , newJsonobject.getString("groups")
+                            , newJsonobject.getString("teachers")
+                            , Integer.parseInt(newJsonobject.getString("id")));
 
-            } catch (Exception e) {
+                    array.add(newexc);
 
-                e.printStackTrace();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+                }
 
             }
-
         }
 
         return array;
@@ -310,20 +312,25 @@ public class ConnectDB {
 
         ArrayList<Group> array = new ArrayList<>();
 
-        for (int i = 0; i < jsonarray.length(); i++) {
+        if (jsonarray != null) {
 
-            try {
 
-                JSONObject newJsonobject = jsonarray.getJSONObject(i);
+            for (int i = 0; i < jsonarray.length(); i++) {
 
-                Group newexc = new Group(newJsonobject.getString("grupo")
-                        , Integer.parseInt(newJsonobject.getString("id")));
+                try {
 
-                array.add(newexc);
+                    JSONObject newJsonobject = jsonarray.getJSONObject(i);
 
-            } catch (Exception e) {
+                    Group newexc = new Group(newJsonobject.getString("grupo")
+                            , Integer.parseInt(newJsonobject.getString("id")));
 
-                e.printStackTrace();
+                    array.add(newexc);
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+                }
 
             }
 
@@ -336,20 +343,24 @@ public class ConnectDB {
 
         ArrayList<Teacher> array = new ArrayList<>();
 
-        for (int i = 0; i < jsonarray.length(); i++) {
+        if (jsonarray != null) {
 
-            try {
+            for (int i = 0; i < jsonarray.length(); i++) {
 
-                JSONObject newJsonobject = jsonarray.getJSONObject(i);
+                try {
 
-                Teacher newexc = new Teacher(newJsonobject.getString("nombre")
-                        , Integer.parseInt(newJsonobject.getString("id")));
+                    JSONObject newJsonobject = jsonarray.getJSONObject(i);
 
-                array.add(newexc);
+                    Teacher newexc = new Teacher(newJsonobject.getString("nombre")
+                            , Integer.parseInt(newJsonobject.getString("id")));
 
-            } catch (Exception e) {
+                    array.add(newexc);
 
-                e.printStackTrace();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+                }
 
             }
 
