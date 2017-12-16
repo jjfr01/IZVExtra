@@ -46,7 +46,12 @@ public class MainFragment extends Fragment {
         ra = new RecyclerAdapterViewOnly(excs, view.getContext(), getActivity());
         rv.setAdapter(ra);
 
-        rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        //rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, true));
+        rv.setLayoutManager(mLayoutManager);
 
         return view;
     }

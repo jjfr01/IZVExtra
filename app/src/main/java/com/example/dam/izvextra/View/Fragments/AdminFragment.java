@@ -69,7 +69,12 @@ public class AdminFragment extends Fragment {
         ra = new RecyclerAdapterEditExc(excs, view.getContext(), getActivity(), getArguments(), grps, tchs);
         rv.setAdapter(ra);
 
-        rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        //rv.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, true));
+        rv.setLayoutManager(mLayoutManager);
 
         Button btnAddExc = view.findViewById(R.id.btnAddExc);
 
